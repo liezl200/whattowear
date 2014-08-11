@@ -62,6 +62,7 @@ app = webapp2.WSGIApplication([
   ('/createItem', CreateItemHandler),
   ('/createItemForm', CreateItemFormHandler),
   ('/viewItems', ViewItemsHandler),
+  ('/about', AboutHandler),
   #('/updateItem', UpdateItemHandler),
   #('/deleteItem', DeleteItemHandler),
   #('/choose', ChooseHandler),
