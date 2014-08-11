@@ -18,6 +18,7 @@ import jinja2
 import os
 import header
 import webapp2
+from main import *
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -60,15 +61,3 @@ class ProfileHandler (webapp2.RequestHandler):
 
 jinja_environment = jinja2.Environment(loader=
       jinja2.FileSystemLoader(os.path.dirname(__file__)))
-
-'''
-app = webapp2.WSGIApplication([
-  ('/createItem', CreateItemHandler),
-  ('/createItemForm', CreateItemFormHandler),
-  ('/viewItems', ViewItemsHandler),
-  ('/about', AboutHandler),
-  #('/updateItem', UpdateItemHandler),
-  #('/deleteItem', DeleteItemHandler),
-  #('/choose', ChooseHandler),
-], debug=True)
-'''

@@ -18,7 +18,7 @@ import jinja2
 import os
 import webapp2
 import header
-from closet import *
+import closet
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -26,17 +26,17 @@ from google.appengine.api import users
 class MainHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/')}
-    template = jinja_environment.get_template('home.html')
+    template = closet.jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
 
 
 #jinja_environment = jinja2.Environment(loader=
- #     jinja2.FileSystemLoader(os.path.dirname(__file__)))
+#      jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
-  ('/createItem', CreateItemHandler),
-  ('/createItemForm', CreateItemFormHandler),
-  ('/viewItems', ViewItemsHandler),
-  ('/about', AboutHandler),
+  ('/createItem', closet.CreateItemHandler),
+  ('/createItemForm', closet.CreateItemFormHandler),
+  ('/viewItems', closet.ViewItemsHandler),
+  ('/about', closet.AboutHandler),
 ], debug=True)
