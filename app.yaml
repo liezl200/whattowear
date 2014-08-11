@@ -8,11 +8,19 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+
 - url: /static
   static_dir: static
 
+- url: /closet/.*
+  script: closet.app
+  login: required
+  auth_fail_action: unauthorized
+
 - url: /.*
   script: main.app
+  login: required
+
 
 builtins:
 - remote_api: on
