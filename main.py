@@ -27,33 +27,37 @@ class Item(ndb.Model):
   availability = ndb.StringProperty(required=True)
 class MainHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {}
+    template_values = {"header": header}
     template = jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
 
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
-    template_values = {}
+    template_values = {"header": header}
     template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {}
+    template_values = {"header": header}
     name = self.request.get('itemName')
     availability = "available" if self.request.get('available') == 'available' else "unavailable"
-    template_values = {'name' : name, 'availability' : availability}
+    template_values['name'] = name
+    template_values['availability'] = availability
     item = Item(name=name, availability=availability)
     item.put()
     template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class ViewItemsHandler(webapp2.RequestHandler):
   def get(self):
-    #template_values = {}
-    template_values = {'items' : Item.query().fetch()} 
+    template_values = {"header": header}
+    template_values['items'] = Item.query().fetch()
     template = jinja_environment.get_template('viewItems.html')
     self.response.out.write(template.render(template_values))
-
-
+class AboutHandler(webapp2.RequestHandler):
+  def get(self):
+    template_values = {"header": header}
+    template = jinja_environment.get_template('about.html')
+    self.response.out.write(template.render(template_values))
 jinja_environment = jinja2.Environment(loader=
       jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -62,7 +66,26 @@ app = webapp2.WSGIApplication([
   ('/createItem', CreateItemHandler),
   ('/createItemForm', CreateItemFormHandler),
   ('/viewItems', ViewItemsHandler),
+  ('/about', AboutHandler),
   #('/updateItem', UpdateItemHandler),
   #('/deleteItem', DeleteItemHandler),
   #('/choose', ChooseHandler),
 ], debug=True)
+
+
+header = '''
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="../" class="navbar-brand">What To Wear</a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="/createItemForm">New Item</a></li>
+          <li><a href="/viewItems">Closet</a></li>  
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  '''
