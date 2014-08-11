@@ -62,6 +62,7 @@ class AboutHandler(webapp2.RequestHandler):
 class ProfileHandler (webapp2.RequestHandler):
   def get(self): 
     template_values['current_user'] = users.get_current_user()
+
 jinja_environment = jinja2.Environment(loader=
       jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
