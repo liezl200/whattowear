@@ -14,3 +14,5 @@ header = '''
     </div>
   </header>
   '''
+def getHeader(pageRoute):
+	return header

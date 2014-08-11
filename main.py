@@ -21,48 +21,13 @@ import header
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
-def dropItems():
-  for i in Item.query().fetch():
-      i.key.delete()
-class Item(ndb.Model):
-  name = ndb.StringProperty(required=True)
-  availability = ndb.StringProperty(required=True)
+
 class MainHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {"header": header}
+    template_values = {"header": header.getHeader('/')}
     template = jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
 
-class CreateItemFormHandler(webapp2.RequestHandler):
-  def get(self): 
-    template_values = {"header": header}
-    template = jinja_environment.get_template('createItem.html')
-    self.response.out.write(template.render(template_values))
-class CreateItemHandler(webapp2.RequestHandler):
-  def get(self):
-    template_values = {"header": header}
-    name = self.request.get('itemName')
-    availability = "available" if self.request.get('available') == 'available' else "unavailable"
-    template_values['name'] = name
-    template_values['availability'] = availability
-    item = Item(name=name, availability=availability)
-    item.put()
-    template = jinja_environment.get_template('createItem.html')
-    self.response.out.write(template.render(template_values))
-class ViewItemsHandler(webapp2.RequestHandler):
-  def get(self):
-    template_values = {"header": header}
-    template_values['items'] = Item.query().fetch()
-    template = jinja_environment.get_template('viewItems.html')
-    self.response.out.write(template.render(template_values))
-class AboutHandler(webapp2.RequestHandler):
-  def get(self):
-    template_values = {"header": header}
-    template = jinja_environment.get_template('about.html')
-    self.response.out.write(template.render(template_values))
-class ProfileHandler (webapp2.RequestHandler):
-  def get(self): 
-    template_values['current_user'] = users.get_current_user()
 
 jinja_environment = jinja2.Environment(loader=
       jinja2.FileSystemLoader(os.path.dirname(__file__)))
