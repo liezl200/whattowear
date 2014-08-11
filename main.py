@@ -18,6 +18,7 @@ import jinja2
 import os
 import webapp2
 import header
+from closet import *
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -29,9 +30,13 @@ class MainHandler(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 
-jinja_environment = jinja2.Environment(loader=
-      jinja2.FileSystemLoader(os.path.dirname(__file__)))
+#jinja_environment = jinja2.Environment(loader=
+ #     jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
+  ('/createItem', CreateItemHandler),
+  ('/createItemForm', CreateItemFormHandler),
+  ('/viewItems', ViewItemsHandler),
+  ('/about', AboutHandler),
 ], debug=True)

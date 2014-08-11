@@ -1,20 +1,36 @@
 <html>
 <head>
 	<title>Create Item</title>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="/static/jquery-1.11.1.min.js"></script>
   <script src="/static/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/static/bootstrap.min.css">
-  <script src="/static/jquery-1.11.1.min.js"></script>
+  <script>
+    function validateForm(){
+      alert('test');
+      var nameinp = document.forms["create"]["itemName"].value;
+      var allWhitespace = true;
+      for(i = 0; i < nameinp.length; i++){
+        if(nameinp.charAt(i) != " ")
+          allWhitespace = false;
+      }
+      if (allWhitespace || nameinp.length == 0){
+        alert("Please enter a valid name. Must contain at least 1 non-space character");
+        return false;
+      }
+    }
+  </script>
 </head>
 <body>
   {{header}}
   <div class="container bs-docs-container">
     <div class="bs-docs-section">
-    	<form id="create" action="createItem"> 
+    	<form name="create" id="create" action="createItem" onsubmit="return validateForm();" method="post"> 
     		<input type="text" name="itemName">
         <br>
         <input type="checkbox" name="available" value="available" checked>Is this item available?</input>
         <br>
-        <button type="submit">Add Item</button>
+        <input type="submit">Add Item</input>
     	</form>
     	{% if name %}
         <div class="status">

@@ -29,12 +29,12 @@ class Item(ndb.Model):
   availability = ndb.StringProperty(required=True)
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
-    template_values = {"header": header.getHeader('/createItem')}
+    template_values = {"header": header.getHeader('/createItemForm')}
     template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {"header": header.getHeader('/createItemForm')}
+    template_values = {"header": header.getHeader('/createItem')}
     name = self.request.get('itemName')
     availability = "available" if self.request.get('available') == 'available' else "unavailable"
     template_values['name'] = name
@@ -58,6 +58,10 @@ class ProfileHandler (webapp2.RequestHandler):
   def get(self): 
     template_values['current_user'] = users.get_current_user()
 
+jinja_environment = jinja2.Environment(loader=
+      jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+'''
 app = webapp2.WSGIApplication([
   ('/createItem', CreateItemHandler),
   ('/createItemForm', CreateItemFormHandler),
@@ -67,3 +71,4 @@ app = webapp2.WSGIApplication([
   #('/deleteItem', DeleteItemHandler),
   #('/choose', ChooseHandler),
 ], debug=True)
+'''
