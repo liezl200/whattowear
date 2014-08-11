@@ -5,6 +5,7 @@
   <script src="/static/jquery-1.11.1.min.js"></script>
   <script src="/static/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/static/bootstrap.min.css">
+  
   <script>
     function validateForm(){
       alert('test');
@@ -20,12 +21,13 @@
       }
     }
   </script>
+
 </head>
 <body>
   {{header}}
   <div class="container bs-docs-container">
     <div class="bs-docs-section">
-    	<form name="create" id="create" action="createItem" onsubmit="return validateForm();" method="post"> 
+    	<form name="create" id="create" action="createItem" onsubmit="return validateForm();" method="post">
     		<input type="text" name="itemName">
         <br>
         <input type="checkbox" name="available" value="available" checked>Is this item available?</input>

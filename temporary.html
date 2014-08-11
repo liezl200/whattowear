@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <p>
+        Please enter clothing item information.
+    </p>
+    <link rel="stylesheet" type="text/css" href="static/temporarystyle.css"/>
+    <script src="static/addItem.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="/static/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap.min.js"></script>
+
+
+    <img src="static/tankTop.png" id="toptank" class="clothing"/>
+    <img src="static/shortSleeveTShirt.png" id="topshort" class="clothing"/>
+    <img src="static/shorts.png" id="bottomshort" class="clothing"/>
+    <img src="static/longSleeveTShirt.png" id="toplong" class="clothing"/>
+    <img src="static/pants.png" id="bottomlong" class="clothing"/>
+</head>
+
+<body onload="main()">
+    <form action="topBottom" method="get" class="fixed" id="topBottomForm">
+        <input type="radio" name='topbottom' value='top' checked="checked">top
+        <input type="radio" name='topbottom' value='bottom'>bottom
+    </form>
+
+    <form action="longShort" method="get" class="fixed" id="longShortForm">
+        <input type="radio" name='longshort' value='short' checked="checked">short
+        <input type="radio" name='longshort' value='long'>long
+    </form>
+
+    <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
+
+    <form method="get" class="fixed" id="patternSelector">
+        <input type="radio" name='longshort' value='short' checked="checked">short
+        <input type="radio" name='longshort' value='long'>long
+        <input type="radio" name='longshort' value='short' checked="checked">short
+        <input type="radio" name='longshort' value='long'>long
+    </form>
+
+    <p>
+        Select a color
+    </p>
+    <canvas width="200px" height="50px" class="fixed" id='colorSelector'></canvas>
+
+    
+</body>
+
+</html>
