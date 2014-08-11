@@ -34,11 +34,4 @@ jinja_environment = jinja2.Environment(loader=
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
-  ('/createItem', CreateItemHandler),
-  ('/createItemForm', CreateItemFormHandler),
-  ('/viewItems', ViewItemsHandler),
-  ('/about', AboutHandler),
-  #('/updateItem', UpdateItemHandler),
-  #('/deleteItem', DeleteItemHandler),
-  #('/choose', ChooseHandler),
 ], debug=True)
