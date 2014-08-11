@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>View Closet</title>
+
+  <script src="/static/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <script src="/static/jquery-1.11.1.min.js"></script>
+  <style>
+    .unavailable{
+      color: gray;
+    }
+    .available{
+      color: purple;
+    }
+  </style>
+  <script>
+
+  </script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+</head>
+<body>
+  <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="../" class="navbar-brand">What To Wear</a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="/createItemForm">New Item</a></li>
+          <li><a href="/viewItems">Closet</a></li>  
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <h1>Closet with All Items</h1>
+    <table> 
+    {% for item in items %} 
+    <tr>
+      <td class={{ item.availability }}>name: {{ item.name }}</td> 
+    </tr> 
+    {% endfor %}
+    </table>
+
+
+</body>
+</html>

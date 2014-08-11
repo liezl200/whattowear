@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Create Item</title>
+  <script src="/static/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <script src="/static/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+  <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="../" class="navbar-brand">What To Wear</a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="/createItemForm">New Item</a></li>
+          <li><a href="/viewItems">Closet</a></li>  
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+	<form id="create" action="createItem"> 
+		<input type="text" name="itemName">
+    <br>
+    <input type="checkbox" name="available" value="available" checked>Is this item available?</input>
+    <br>
+    <button type="submit">Add Item</button>
+	</form>
+	{% if name %}
+    <div class="status">
+      You created a currently {{availability}} item with the name:
+      <strong>{{ name }}</strong> and added it to your closet.
+    </div>
+    <br><br>
+  {% endif %}
+</body>
+</html>

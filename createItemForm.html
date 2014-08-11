@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>Create Item</title>
+</head>
+<body>
+	<form id="create" action="createItem"> 
+		<input type="text" name="itemName">
+	</form>
+	{% if name %}
+      <div class="status">
+        You created an item with the name:
+        <strong>{{ name }}</strong> and added it to your closet.
+      </div>
+      <br><br>
+    {% endif %}
+</body>
+</html>
