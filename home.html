@@ -5,9 +5,49 @@
   <script src="/static/jquery-1.11.1.min.js"></script>
   <script src="/static/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <style>
+    .splash{
+      background:url({{randomImg}}) no-repeat center top;
+      margin-top: -80px;
+      padding-top: 20px;
+      text-align: center;
+      background-attachment: relative;
+      background-position: center center;
+      min-height: 500px;
+      width: 100%;
+      -webkit-background-size: 100%;
+      -moz-background-size: 100%;
+      -o-background-size: 100%;
+      background-size: 100%;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+    #splashText{
+      padding-top: 100px;
+    }
+  </style>
 </head>
 <body>
   {{header}}
+  <div class="splash">
+    <div class="container" style="text-shadow: 1px 1px #ffffff">
+      <br><br><br>
+      <h1 id="splashText">How are you feeling today?</h1>
+    </div>
+  </div>
+  <div class="container bs-docs-container">
+  <div class="bs-docs-section">
+
+    <h3>Who we are</h3>
+    <p>We are a group of rising college freshmen who want to make the world a better, more fashionable place. </p>
+    <h3>How we help</h3>
+    <p><em>What to Wear</em>.com will help you co-ordinate an outfit based on next-day weather data and your mood of the day.</p>
+    <p>Enter your closet details, and we'll figure out the rest.</p>
+
+  </div>
+  </div>
 </body>
 </html>
 

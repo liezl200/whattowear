@@ -16,6 +16,7 @@
 #
 import jinja2
 import os
+import random
 import webapp2
 import header
 import closet
@@ -26,6 +27,8 @@ from google.appengine.api import users
 class MainHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/')}
+    jpgs = [177, 187, 207, 317, 322, 357, 404, 433]
+    template_values['randomImg'] = '/static/' + str(jpgs[random.randint(0,7)]) + '.jpg'
     template = closet.jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
 

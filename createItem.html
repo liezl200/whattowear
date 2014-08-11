@@ -8,7 +8,6 @@
   
   <script>
     function validateForm(){
-      alert('test');
       var nameinp = document.forms["create"]["itemName"].value;
       var allWhitespace = true;
       for(i = 0; i < nameinp.length; i++){
@@ -27,12 +26,14 @@
   {{header}}
   <div class="container bs-docs-container">
     <div class="bs-docs-section">
-    	<form name="create" id="create" action="createItem" onsubmit="return validateForm();" method="post">
+
+    	<form name="create" id="create" action="createItem" onsubmit="return validateForm();">
+
     		<input type="text" name="itemName">
         <br>
         <input type="checkbox" name="available" value="available" checked>Is this item available?</input>
         <br>
-        <input type="submit">Add Item</input>
+        <input type="submit" name="Add Item"></input>
     	</form>
     	{% if name %}
         <div class="status">
