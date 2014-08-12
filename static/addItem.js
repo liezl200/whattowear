@@ -1,5 +1,5 @@
 var colorBoxArray;
-var lastRGB = [-1, -1, -1];
+var lastRGB = [-1, -1, -1, ''];
 
 function main()
 {
@@ -10,13 +10,15 @@ function main()
 
 function initializeHandlers()
 {
-    var topBottomForm = document.getElementById("topBottomForm");
-    for(var i = 0; i < 2; i++)
-        topBottomForm.elements[i].onclick = onClick;
-
-    var longShortForm = document.getElementById("longShortForm");
-    for(var x = 0; x < 2; x++)
-        longShortForm.elements[x].onclick = onClick;
+    var mainform = document.getElementById("createItem");
+    for(var i = 0; i < mainform.elements.length; i++)
+    {
+        var name = mainform.elements[i].name;
+        if(name === "topbottom" || name === "longshort")
+            mainform.elements[i].onclick = onClick;
+        else if(name === "Add Item")
+            mainform.elements[i].onclick = onSubmit;
+    }
 }
 
 function initializeColorSelector()
@@ -65,11 +67,11 @@ function removeWaterMark()
     }
     lastRGB[0] = 254;
     lastRGB[1] = 254;
-    lastRGB[2] = 254
+    lastRGB[2] = 254;
     ctx.putImageData(imageData, 0, 0);
 }
 
-function changeColor(r, g, b)
+function changeColor(r, g, b, name)
 {
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
@@ -88,6 +90,7 @@ function changeColor(r, g, b)
     lastRGB[0] = r;
     lastRGB[1] = g;
     lastRGB[2] = b;
+    lastRGB[3] = name;
     ctx.putImageData(imageData, 0, 0);
 }
 
@@ -116,7 +119,7 @@ ColorBox.prototype.onClick = function(x, y)
 {
     if(x > this.x && x < this.x + this.width
         && y > this.y && y < this.y + this.height)
-        changeColor(this.r, this.g, this.b);
+        changeColor(this.r, this.g, this.b, this.colorName);
 };
 
 ColorBox.prototype.draw = function(ctx)
@@ -133,8 +136,8 @@ function onClick()
     var ctx = canvas.getContext('2d');
 
     var imageId = "";
-    imageId += topBottomString();
     imageId += longShortString();
+    imageId += topBottomString();
     var image = document.getElementById(imageId);
 
     ctx.fillStyle = "rgb(255,254,252)";
@@ -143,24 +146,43 @@ function onClick()
     removeWaterMark();
 }
 
+function onSubmit()
+{
+    var hiddenColor = document.getElementById('hiddenColor');
+    var hiddenColorName = document.getElementById('hiddenColorName');
+    hiddenColorName.value = lastRGB[3];
+    hiddenColor.value = toHex(lastRGB[0], lastRGB[1], lastRGB[2]);
+}
+
 function topBottomString()
 {
-    var clothingTypeForm = document.getElementById("topBottomForm");
-    for(var i = 0; i < 2; i++)
+    var form = document.getElementById("createItem");
+    for(var i = 0; i < form.length; i++)
     {
-        if(clothingTypeForm.elements[i].checked)
-            return clothingTypeForm.elements[i].value;
+        if(form.elements[i].name === "longshort")
+        {
+            if(form.elements[i].checked)
+                return form.elements[i].value;
+        }
     }
     return "ERROR";
 }
 
 function longShortString()
 {
-    var topBottomForm = document.getElementById("longShortForm");
-    for(var i = 0; i < 2; i++)
+    var form = document.getElementById("createItem");
+    for(var i = 0; i < form.length; i++)
     {
-        if(topBottomForm.elements[i].checked)
-            return topBottomForm.elements[i].value;
+        if(form.elements[i].name === "topbottom")
+        {
+            if(form.elements[i].checked)
+                return form.elements[i].value;
+        }
     }
     return "ERROR";
+}
+
+function toHex(r, g, b)
+{
+    return r.toString(16) + g.toString(16) + b.toString(16);
 }
