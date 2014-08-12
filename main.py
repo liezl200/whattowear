@@ -48,6 +48,12 @@ class LogoutHandler(webapp2.RequestHandler):
 
     logging.info(logouturl)
 
+class SettingsHandler(webapp2.RequestHandler):
+  def get(self):
+    template_values = {"header": header.getHeader('/')}
+    template = closet.jinja_environment.get_template('settings.html')
+    self.response.out.write(template.render(template_values))
+
 #jinja_environment = jinja2.Environment(loader=
 #      jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -58,4 +64,5 @@ app = webapp2.WSGIApplication([
   ('/logout', LogoutHandler),
   ('/viewItems', closet.ViewItemsHandler),
   ('/about', closet.AboutHandler),
+  ('/settings', SettingsHandler),
 ], debug=True)
