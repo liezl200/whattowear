@@ -1,11 +1,18 @@
 <html>
 <head>
   <title>Settings</title>
+
   <script src="/static/jquery-1.11.1.min.js"></script>
   <script src="/static/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/static/bootstrap.min.css">
+
   <link rel="stylesheet" href="/static/sitestyle.css">
 
+  <style>
+  .range {
+    width: 100px;
+  }
+  </style>
 
 </head>
 <body>
@@ -17,14 +24,16 @@
         Input a secondary e-mail below to receive another copy of your automatically-generated outfit each evening.</br>
         E-mail: <input type="text"><br><br>
         How many outfits would you like us to send? </br>
-        <input type="range" min="0" max="5" value="0" step="1" onchange="showValue(this.value)" />
-        <span id="range" width="200">0</span>
+        <input type="range" min="0" max="5" value="0" step="1" onchange="showValue(this.value)" style="width:250px" />
+        <span id="range">0</span>
         <script type="text/javascript">
           function showValue(newValue)
             {
               document.getElementById("range").innerHTML=newValue;
             }
         </script>
+        <br>
+        <input type="submit" value="Amend my profile!">
       </form>
     </div>
   </div>

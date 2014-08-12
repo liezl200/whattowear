@@ -1,0 +1,39 @@
+@font-face {
+    font-family: Lato-Light; 
+    src: url(Lato-Light.ttf) format('truetype');
+}
+@font-face {
+    font-family: Lato-Regular; 
+    src: url(Lato-Regular.ttf) format('truetype');
+}
+@font-face {
+    font-family: Raleway-Light; 
+    src: url(Raleway-Light.ttf) format('truetype');
+}
+@font-face {
+    font-family: Raleway-Regular; 
+    src: url(Raleway-Regular.ttf) format('truetype');
+}
+
+.navbar{
+  font-family: Lato-Regular;
+  border: 0px;
+}
+.navbar a{
+  color:white;
+  -o-transition: .5s;
+  -ms-transition: .5s;
+  -moz-transition: .5s;
+  -webkit-transition: .5s;
+  transition: .5s;
+
+}
+.navbar a:hover{
+  color:black;
+}
+.navbar-header{
+  font-family: Lato-Light;
+}
+#splashText{
+  font-family: Raleway-Regular;
+}

@@ -19,39 +19,47 @@
 
 <body onload="main()">
     {{header}}
-    <p>
-        Please enter clothing item information.
-    </p>
-    <form action="createItem" id="createItem">
-        <input type="radio" name='topbottom' value='top' checked="checked">top
-        <input type="radio" name='topbottom' value='bottom'>bottom
-        <br>
-        <input type="radio" name='longshort' value='short' checked="checked">short
-        <input type="radio" name='longshort' value='long'>long
-        <br>
-        <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
-        <br>
+    <div class="container bs-docs-container">
+        <div class="bs-docs-section" id="formContainer">
+        <h2>Add Closet Items</h2>
         <p>
-            Select a color
+            Recently acquired some new things to wear? Enter the information below, and we'll find some outfits for you to show 'em off!
         </p>
-        <canvas width="200px" height="50px" class="fixed" id='colorSelector'></canvas>
+        <form action="createItem" id="createItem">
+            Is your clothing item a: </br>
+            <input type="radio" name='topbottom' value='top' checked="checked"> Top?
+            <input type="radio" name='topbottom' value='bottom'> Bottom?
+            <br><br>
+            Is your clothing item: </br>
+            <input type="radio" name='longshort' value='short' checked="checked"> Short?
+            <input type="radio" name='longshort' value='long'> Long?
+            <br>
+            <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
+            <br>
+            <p>
+                Select a color: 
+            </p>
+            <canvas width="200px" height="50px" class="fixed" id='colorSelector'></canvas>
+            <br>
+            Select a pattern: </br>
+            <input type="radio" name='patternSelector' value='floral' checked="checked"> Floral
+            <input type="radio" name='patternSelector' value='verticalstripes'> Vertical stripes
+            <input type="radio" name='patternSelector' value='horizontalstripes'> Horizontal stripes
+            <input type="radio" name='patternSelector' value='plaid'> Plaid
+            <br><br>
+            <input type="submit" id="submitButton" name="Add Item">
+            <input type="hidden" name="color" id="hiddenColor">
+            <input type="hidden" name="colorName" id="hiddenColorName">
+        </form>
 
-        <input type="radio" name='patternSelector' value='floral' checked="checked">floral
-        <input type="radio" name='patternSelector' value='verticalstripes'>vertical stripes
-        <input type="radio" name='patternSelector' value='horizontalstripes'>horizontal stripes
-        <input type="radio" name='patternSelector' value='plaid'>plaid
-        <br>
-        <input type="submit" id="submitButton" name="Add Item">
-        <input type="hidden" name="color" id="hiddenColor">
-        <input type="hidden" name="colorName" id="hiddenColorName">
-    </form>
-
-    {% if longorshort %}
-        <div class="status">
-          You created a <strong>{{nameofcolor}}<strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
-        </div>
-        <br><br>
-    {% endif %}
+        {% if longorshort %}
+            <div class="status">
+              You created a <strong>{{nameofcolor}}<strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
+            </div>
+            <br><br>
+        {% endif %}
+    </div>
+</div>
     
 </body>
 
