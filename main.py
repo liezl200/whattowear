@@ -27,16 +27,21 @@ from google.appengine.api import users
 
 class MainHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {"header": header.getHeader('/')}
-    jpgs = [177, 187, 317, 322, 353, 357, 404, 433]
+    renderedHeader = header.getHeader('/')
+    if(users.get_current_user() == None):
+      renderedHeader = renderedHeader.replace('<li><a style="color: white !important;" href="/settings">Settings</a></li>', '')
+      renderedHeader = renderedHeader.replace('Logout', 'Login')
+    template_values = {"header": renderedHeader}
+    jpgs = [177, 187, 207, 317, 322, 357, 404, 433]
+
     template_values['randomImg'] = '/static/' + str(jpgs[random.randint(0,7)]) + '.jpg'
     template = closet.jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
 
 class LoginHandler(webapp2.RequestHandler):
   def get(self):
-    users.create_login_url(dest_url='/about', _auth_domain=None, federated_identity=None)
-
+    loginurl = users.create_login_url(dest_url='/', _auth_domain=None, federated_identity=None)
+    self.redirect(loginurl)
 class LogoutHandler(webapp2.RequestHandler):
   def get(self):
     dest_url = '/'
@@ -48,6 +53,12 @@ class LogoutHandler(webapp2.RequestHandler):
 
     logging.info(logouturl)
 
+class SettingsHandler(webapp2.RequestHandler):
+  def get(self):
+    template_values = {"header": header.getHeader('/')}
+    template = closet.jinja_environment.get_template('settings.html')
+    self.response.out.write(template.render(template_values))
+
 #jinja_environment = jinja2.Environment(loader=
 #      jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -55,7 +66,9 @@ app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/createItem', closet.CreateItemHandler),
   ('/createItemForm', closet.CreateItemFormHandler),
-  ('/logout', LogoutHandler),
+  ('/Logout', LogoutHandler),
+  ('/Login', LoginHandler),
   ('/viewItems', closet.ViewItemsHandler),
   ('/about', closet.AboutHandler),
+  ('/settings', SettingsHandler),
 ], debug=True)
