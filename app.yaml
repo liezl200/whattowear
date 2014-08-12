@@ -19,7 +19,6 @@ handlers:
 
 - url: /.*
   script: main.app
-  login: required
 
 
 builtins:

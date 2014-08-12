@@ -8,7 +8,6 @@ header = '''
         <ul class="nav navbar-nav" >
           <li><a style="color: white !important;" href="/createItemForm">New Item</a></li>
           <li><a style="color: white !important;" href="/viewItems">Closet</a></li>  
-          <li><a style="color: white !important;" href="/about">About</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a style="color: white !important;" href="/settings">Settings</a></li>
