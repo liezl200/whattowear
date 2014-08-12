@@ -33,6 +33,7 @@ class MainHandler(webapp2.RequestHandler):
       renderedHeader = renderedHeader.replace('Logout', 'Login')
     template_values = {"header": renderedHeader}
     jpgs = [177, 187, 207, 317, 322, 357, 404, 433]
+
     template_values['randomImg'] = '/static/' + str(jpgs[random.randint(0,7)]) + '.jpg'
     template = closet.jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
