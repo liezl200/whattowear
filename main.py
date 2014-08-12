@@ -20,6 +20,7 @@ import random
 import webapp2
 import header
 import closet
+import logging
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -32,6 +33,20 @@ class MainHandler(webapp2.RequestHandler):
     template = closet.jinja_environment.get_template('home.html')
     self.response.out.write(template.render(template_values))
 
+class LoginHandler(webapp2.RequestHandler):
+  def get(self):
+    users.create_login_url(dest_url='/about', _auth_domain=None, federated_identity=None)
+
+class LogoutHandler(webapp2.RequestHandler):
+  def get(self):
+    dest_url = '/'
+    logouturl = users.create_logout_url(dest_url)
+    self.redirect(logouturl)
+    #template_values = {'logouturl' : logouturl}
+    #template = closet.jinja_environment.get_template('about.html')
+    #self.response.out.write(template.render(template_values))
+
+    logging.info(logouturl)
 
 #jinja_environment = jinja2.Environment(loader=
 #      jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -40,6 +55,7 @@ app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/createItem', closet.CreateItemHandler),
   ('/createItemForm', closet.CreateItemFormHandler),
+  ('/logout', LogoutHandler),
   ('/viewItems', closet.ViewItemsHandler),
   ('/about', closet.AboutHandler),
 ], debug=True)

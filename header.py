@@ -11,6 +11,7 @@ header = '''
           <li><a style="color: white !important;" href="/about">About</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a style="color: white !important;" href="/settings">Settings</a></li>
           <li><a style="color: white !important;" href="/logout">Logout</a></li>
         </ul>
       </nav>
