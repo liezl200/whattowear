@@ -3,9 +3,7 @@
 <html>
 
 <head>
-    <p>
-        Enter your clothing information here:
-    </p>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/temporarystyle.css"/>
     <script src="static/addItem.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -21,30 +19,40 @@
 </head>
 
 <body onload="main()">
-    <form action="topBottom" method="get" class="fixed" id="topBottomForm">
+    {{header}}
+    <p>
+        Please enter clothing item information.
+    </p>
+    <form action="createItem" id="createItem">
         <input type="radio" name='topbottom' value='top' checked="checked">top
         <input type="radio" name='topbottom' value='bottom'>bottom
-    </form>
-
-    <form action="longShort" method="get" class="fixed" id="longShortForm">
+        <br>
         <input type="radio" name='longshort' value='short' checked="checked">short
         <input type="radio" name='longshort' value='long'>long
+        <br>
+        <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
+        <br>
+        <p>
+            Select a color
+        </p>
+        <canvas width="200px" height="50px" class="fixed" id='colorSelector'></canvas>
+
+        <input type="radio" name='patternSelector' value='floral' checked="checked">floral
+        <input type="radio" name='patternSelector' value='verticalstripes'>vertical stripes
+        <input type="radio" name='patternSelector' value='horizontalstripes'>horizontal stripes
+        <input type="radio" name='patternSelector' value='plaid'>plaid
+        <br>
+        <input type="submit" id="submitButton" name="Add Item">
+        <input type="hidden" name="color" id="hiddenColor">
+        <input type="hidden" name="colorName" id="hiddenColorName">
     </form>
 
-    <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
-
-    <form method="get" class="fixed" id="patternSelector">
-        <input type="radio" name='longshort' value='short' checked="checked">short
-        <input type="radio" name='longshort' value='long'>long
-        <input type="radio" name='longshort' value='short' checked="checked">short
-        <input type="radio" name='longshort' value='long'>long
-    </form>
-
-    <p>
-        Select a color
-    </p>
-    <canvas width="200px" height="50px" class="fixed" id='colorSelector'></canvas>
-
+    {% if longorshort %}
+        <div class="status">
+          You created a <strong>{{nameofcolor}}<strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
+        </div>
+        <br><br>
+    {% endif %}
     
 </body>
 

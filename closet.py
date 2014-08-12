@@ -26,23 +26,35 @@ def dropItems():
   for i in Item.query().fetch():
       i.key.delete()
 class Item(ndb.Model):
-  name = ndb.StringProperty(required=True)
-  availability = ndb.StringProperty(required=True)
+  colorName = ndb.StringProperty(required=True)
+  hexValue = ndb.StringProperty(required=True)
+  topBottom = ndb.StringProperty(required=True)
+  longShort = ndb.StringProperty(required=True)
+  pattern = ndb.StringProperty(required=True)
+  username = ndb.UserProperty(required=True)
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
     template_values = {"header": header.getHeader('/createItemForm')}
-    template = jinja_environment.get_template('createItem.html')
+    template = jinja_environment.get_template('temporary.html')
+    #template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/createItem')}
-    name = self.request.get('itemName')
-    availability = "available" if self.request.get('available') == 'available' else "unavailable"
-    template_values['name'] = name
-    template_values['availability'] = availability
-    item = Item(name=name, availability=availability)
+    color = self.request.get('color')
+    colorName = self.request.get('colorName')
+    topBottom = self.request.get('topbottom')
+    longShort = self.request.get('longshort')
+    pattern = self.request.get('patternSelector')
+    username = users.get_current_user()
+
+    template_values['nameofcolor'] = colorName
+    template_values['toporbottom'] = topBottom
+    template_values['longorshort'] = longShort
+
+    item = Item(colorName = colorName, hexValue = color, topBottom = topBottom, longShort = longShort, pattern = pattern, username = username)
     item.put()
-    template = jinja_environment.get_template('createItem.html')
+    template = jinja_environment.get_template('temporary.html')
     self.response.out.write(template.render(template_values))
 class ViewItemsHandler(webapp2.RequestHandler):
   def get(self):
