@@ -18,6 +18,7 @@ import jinja2
 import os
 import header
 import webapp2
+import logging
 from main import *
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -31,7 +32,7 @@ class Item(ndb.Model):
   topBottom = ndb.StringProperty(required=True)
   longShort = ndb.StringProperty(required=True)
   pattern = ndb.StringProperty(required=True)
-  username = ndb.UserProperty(required=True)
+  user = ndb.UserProperty(required=True)
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
     template_values = {"header": header.getHeader('/createItemForm')}
@@ -46,20 +47,24 @@ class CreateItemHandler(webapp2.RequestHandler):
     topBottom = self.request.get('topbottom')
     longShort = self.request.get('longshort')
     pattern = self.request.get('patternSelector')
-    username = users.get_current_user()
+
+    user = users.get_current_user()
+    logging.info(user)
 
     template_values['nameofcolor'] = colorName
     template_values['toporbottom'] = topBottom
     template_values['longorshort'] = longShort
 
-    item = Item(colorName = colorName, hexValue = color, topBottom = topBottom, longShort = longShort, pattern = pattern, username = username)
+    item = Item(colorName = colorName, hexValue = color, topBottom = topBottom, longShort = longShort, pattern = pattern, user = user)
     item.put()
     template = jinja_environment.get_template('temporary.html')
     self.response.out.write(template.render(template_values))
 class ViewItemsHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/viewItems')}
-    template_values['items'] = Item.query().fetch()
+    query = Item.query().filter(Item.user == users.get_current_user())
+    items = query.fetch()
+    template_values['items'] = items
     template = jinja_environment.get_template('viewItems.html')
     self.response.out.write(template.render(template_values))
 class AboutHandler(webapp2.RequestHandler):
