@@ -14,6 +14,9 @@
     font-family: Raleway-Regular; 
     src: url(Raleway-Regular.ttf) format('truetype');
 }
+body {
+  font-family: Raleway-Regular;
+}
 
 .navbar{
   font-family: Lato-Regular;
