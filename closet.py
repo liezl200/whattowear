@@ -27,7 +27,6 @@ def dropItems():
   for i in Item.query().fetch():
       i.key.delete()
 class Item(ndb.Model):
-  colorName = ndb.StringProperty(required=True)
   hexValue = ndb.StringProperty(required=True)
   topBottom = ndb.StringProperty(required=True)
   longShort = ndb.StringProperty(required=True)
@@ -43,7 +42,6 @@ class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/createItem')}
     color = self.request.get('color')
-    colorName = self.request.get('colorName')
     topBottom = self.request.get('topbottom')
     longShort = self.request.get('longshort')
     pattern = self.request.get('patternSelector')
@@ -55,7 +53,7 @@ class CreateItemHandler(webapp2.RequestHandler):
     template_values['toporbottom'] = topBottom
     template_values['longorshort'] = longShort
 
-    item = Item(colorName = colorName, hexValue = color, topBottom = topBottom, longShort = longShort, pattern = pattern, user = user)
+    item = Item(hexValue = color, topBottom = topBottom, longShort = longShort, pattern = pattern, user = user)
     item.put()
     template = jinja_environment.get_template('temporary.html')
     self.response.out.write(template.render(template_values))
