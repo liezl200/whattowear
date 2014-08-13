@@ -1,48 +1,89 @@
+<!DOCTYPE html>
+
 <html>
+
 <head>
-	<title>Create Item</title>
-  <link rel="stylesheet" href="/static/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/sitestyle.css">
-  <link rel="stylesheet" href="/static/font-awesome.css">
-  <script src="/static/jquery-1.11.1.min.js"></script>  
-  <script>
-    function validateForm(){
-      var nameinp = document.forms["create"]["itemName"].value;
-      var allWhitespace = true;
-      for(i = 0; i < nameinp.length; i++){
-        if(nameinp.charAt(i) != " ")
-          allWhitespace = false;
-      }
-      if (allWhitespace || nameinp.length == 0){
-        alert("Please enter a valid name. Must contain at least 1 non-space character");
-        return false;
-      }
-    }
-  </script>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/temporarystyle.css"/>
 
+    <script src="static/addItem.js"></script>
+    <script src="/static/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/raphael-min.js"></script>
+    <script type="text/javascript" src="static/colorwheel.js"></script>
+    <link rel="stylesheet" href="/static/sitestyle.css">
+    <link rel="stylesheet" href="/static/font-awesome.css">
+
+    <img src="static/tankTop.png" id="topshortshort" class="clothing"/>
+    <img src="static/shortSleeveTShirt.png" id="topshort" class="clothing"/>
+    <img src="static/shortshorts.png" id="bottomshortshort" class="clothing"/>
+    <img src="static/shorts.png" id="bottomshort" class="clothing"/>
+    <img src="static/longSleeveTShirt.png" id="toplong" class="clothing"/>
+    <img src="static/pants.png" id="bottomlong" class="clothing"/>
+    <img src="static/longdress.png" id="dresslong" class="clothing"/>
+    <img src="static/shortdress.png" id="dressshort" class="clothing"/>
+    <img src="static/shortshortdress.png" id="dressshortshort" class="clothing"/>
 </head>
-<body>
+
+<body onload="main()">
   {{header}}
-  <div class="container bs-docs-container">
-    <div class="bs-docs-section">
-
-    	<form name="create" id="create" action="createItem" onsubmit="return validateForm();">
-
-    		<input type="text" name="itemName">
-        <br>
-        <input type="checkbox" name="available" value="available" checked>Is this item available?</input>
-        <br>
-        <input type="submit" name="Add Item"></input>
-    	</form>
-    	{% if name %}
+  <div class="content-wrapper">
+    <div class="container bs-docs-container">
+        <div class="bs-docs-section" id="formContainer">
+        <h2>Add Closet Items</h2>
+        <p>
+            Recently acquired some new things to wear? Enter the information below, and we'll find some outfits for you to show 'em off!
+        </p>
+        
+        <!--<div width="100px" height="100px" id='colorSelector'></form>-->
+    {% if longorshort %}
         <div class="status">
-          You created a currently {{availability}} item with the name:
-          <strong>{{ name }}</strong> and added it to your closet.
+          You created a <strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
         </div>
         <br><br>
-      {% endif %}
+    {% endif %}
+        <form action="createItem" id="createItem">
+            Is your clothing item a: </br>
+            <input type="radio" name='topbottom' value='top' checked="checked"> Top?
+            <input type="radio" name='topbottom' value='bottom'> Bottom?
+            
+            <input type="radio" name='topbottom' value='dress'> Dress?
+            <br><br>
+            Is your clothing item: </br>
+            
+            <input type="radio" name='longshort' value='long' checked="checked"> Long?
+            <input type="radio" name='longshort' value='short'> Short?
+            <input type="radio" name='longshort' value='shortshort'> Short-short?
+            <br>
+            <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
+            <br>
+            <p>
+                Select a color: 
+            </p>
+            <div style="height:200px; width:200px;" id='colorSelector'></div>
+            <br>
+            Select a pattern: </br>
+            <input type="radio" name='patternSelector' value='none' checked="checked"> No pattern
+            <input type="radio" name='patternSelector' value='floral'> Floral
+            <input type="radio" name='patternSelector' value='verticalstripes'> Vertical stripes
+            <input type="radio" name='patternSelector' value='horizontalstripes'> Horizontal stripes
+            <input type="radio" name='patternSelector' value='plaid'> Plaid
+            <br><br>
+            <input type="submit" id="submitButton" name="Add Item" style="margin-bottom:20px;">
+            <input type="hidden" name="color" id="hiddenColor">
+        </form>
+
+        <!--{% if longorshort %}
+            <div class="status">
+              You created a <strong>{{nameofcolor}}<strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
+            </div>
+            <br><br>
+        {% endif %}-->
+        </div>
     </div>
   </div>
   {{footer}}
+    
 </body>
+
 </html>

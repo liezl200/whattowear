@@ -35,7 +35,7 @@ class Item(ndb.Model):
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
     template_values = {"header": header.getHeader('/createItemForm'), "footer": header.getFooter()}
-    template = jinja_environment.get_template('temporary.html')
+    template = jinja_environment.get_template('createItem.html')
     #template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class CreateItemHandler(webapp2.RequestHandler):

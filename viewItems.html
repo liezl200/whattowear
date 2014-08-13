@@ -16,7 +16,7 @@
     <img src="static/pants.png" id="bottomlong" class="clothing"/>
     <img src="static/longdress.png" id="dresslong" class="clothing"/>
     <img src="static/shortdress.png" id="dressshort" class="clothing"/>
-    <img src="static/shorterdress.png" id="dressshortshort" class="clothing"/>
+    <img src="static/shortshortdress.png" id="dressshortshort" class="clothing"/>
 
   <script type="text/javascript" src="static/renderItems.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -27,28 +27,30 @@
 </head>
 <body onload="renderShirtsMain()">
   {{header}}
-  <div class="container bs-docs-container">
-    <h1>Closet with All Items</h1>
-    <div class="bs-docs-section magical" id="formContainer">
-      {% for item in items %}
-        <canvas height="300px" width="200px"></canvas>
-        <form>
-          <input type="hidden" name="hexValue" value={{item.hexValue}}>
-          <input type="hidden" name="topBottom" value={{item.topBottom}}>
-          <input type="hidden" name="longShort" value={{item.longShort}}>
-          <input type="hidden" name="pattern" value={{item.pattern}}>
-        </form>
-      {% endfor %}
-      <!--<table class="table table-striped"> 
-      {% for item in items %} 
-        <tr>
-          <td class={{ item.availability }}>
-            <canvas height="150px" width="100px"></canvas>
-          </td> 
-        </tr> 
-      {% endfor %}
-      </table>-->
+  <div class="content-wrapper">
+    <div class="container bs-docs-container">
+      <h1>Closet with All Items</h1>
+      <div class="bs-docs-section magical" id="formContainer">
+        {% for item in items %}
+          <canvas height="300px" width="200px"></canvas>
+          <form>
+            <input type="hidden" name="hexValue" value={{item.hexValue}}>
+            <input type="hidden" name="topBottom" value={{item.topBottom}}>
+            <input type="hidden" name="longShort" value={{item.longShort}}>
+            <input type="hidden" name="pattern" value={{item.pattern}}>
+          </form>
+        {% endfor %}
+        <!--<table class="table table-striped"> 
+        {% for item in items %} 
+          <tr>
+            <td class={{ item.availability }}>
+              <canvas height="150px" width="100px"></canvas>
+            </td> 
+          </tr> 
+        {% endfor %}
+        </table>-->
 
+      </div>
     </div>
     <div class="push"></div>
   </div>

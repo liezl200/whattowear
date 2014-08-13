@@ -52,7 +52,6 @@ footer = '''
 
   </div>
 </footer>
-<script src="/static/jquery-1.11.1.min.js"></script>
 <script src="/static/bootstrap.min.js"></script>
 <script src="static/main.js"></script>
 <script src="static/masonry.pkgd.min.js"></script>
