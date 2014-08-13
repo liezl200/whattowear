@@ -29,8 +29,9 @@ class MainHandler(webapp2.RequestHandler):
   def get(self):
     renderedHeader = header.getHeader('/')
     if(users.get_current_user() == None):
-      renderedHeader = renderedHeader.replace('<li><a style="color: white !important;" href="/settings">Settings</a></li>', '')
+      renderedHeader = renderedHeader.replace('<li><a href="/settings">SETTINGS</a></li>', '')
       renderedHeader = renderedHeader.replace('Logout', 'Login')
+      renderedHeader = renderedHeader.replace('LOGOUT', 'LOGIN')
     template_values = {"header": renderedHeader}
     jpgs = [177, 187, 207, 317, 322, 357, 404, 433]
 
