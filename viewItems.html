@@ -32,15 +32,42 @@
       <h1>Closet with All Items</h1>
         {% if items == [] %}
           <h1>No items in closet. Would you like to <a href="/createItemForm">add some?</a></h1>
-        {% endif %}
-        <form id="deleteItems" action="deleteItems">
+        {% else %}
+          <form id="deleteItems" action="deleteItems">
           <input type="submit" name="submit" id="submitButton" value="Delete Selected Items">
           <br>
+          <h2><b>Shirts</b></h2>
           {% for item in items %}
-            <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
-            <input type="checkbox" name="checkbox" value={{item.key}}>
+            {% if item.topBottom == 'top' %}
+              <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
+              <input type="checkbox" name="checkbox" value={{item.key.id()}}>
+            {% endif %}
           {% endfor %}
-        </form>
+          <br>
+          <h2><b>Shorts</b></h2>
+          {% for item in items %}
+            {% if item.topBottom == 'bottom' and (item.longShort == 'short' or item.longShort == 'shortshort') %}
+              <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
+              <input type="checkbox" name="checkbox" value={{item.key.id()}}>
+            {% endif %}
+          {% endfor %}
+          <br>
+          <h2><b>Pants</b></h2>
+          {% for item in items %}
+            {% if item.topBottom == 'bottom' and item.longShort == 'long' %}
+              <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
+              <input type="checkbox" name="checkbox" value={{item.key.id()}}>
+            {% endif %}
+          {% endfor %}
+          <h2><b>Dresses</b></h2>
+          {% for item in items %}
+            {% if item.topBottom == 'dress' %}
+              <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
+              <input type="checkbox" name="checkbox" value={{item.key.id()}}>
+            {% endif %}
+          {% endfor %}
+          </form>
+        {% endif %}
       </div>
     <div class="push"></div>
   </div>
