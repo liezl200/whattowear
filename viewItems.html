@@ -31,6 +31,9 @@
     <div class="container bs-docs-container">
       <h1>Closet with All Items</h1>
       <div class="bs-docs-section magical" id="formContainer">
+        {% if items == [] %}
+        <h1>No Items in closet. Would you like to <a href="/createItemForm">add </a> some?</h1>
+        {% endif %}
         {% for item in items %}
           <canvas height="300px" width="200px"></canvas>
           <form>
