@@ -83,7 +83,7 @@ class AboutHandler(webapp2.RequestHandler):
 class ProfileHandler (webapp2.RequestHandler):
   def get(self): 
     template_values['current_user'] = users.get_current_user()
-
+'''
 def GenerateColors(color):
   generated = []
   R = color[:2]
@@ -111,7 +111,7 @@ def MatchColors(): #returns a list of similar colours based on randomly selected
   for item in results:
     for  in compatible[each_color]:
       ColorSimilarity(startWith, result)
-      closest_match.append()
+      closest_match.append() '''
 
 
 
