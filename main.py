@@ -82,7 +82,6 @@ def getWeather():
   data = json.load(response)
   return data['currently']
 
-
 def selectOutfit():
   currWeather = getWeather()
   if float(currWeather['temperature']) < 67: #later on let the user change this in settings
@@ -100,6 +99,7 @@ app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/createItem', closet.CreateItemHandler),
   ('/createItemForm', closet.CreateItemFormHandler),
+  ('/deleteItems', closet.DeleteItemsHandler),
   ('/Logout', LogoutHandler),
   ('/Login', LoginHandler),
   ('/viewItems', closet.ViewItemsHandler),

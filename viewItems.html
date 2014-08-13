@@ -30,31 +30,18 @@
   <div class="content-wrapper">
     <div class="container bs-docs-container">
       <h1>Closet with All Items</h1>
-      <div class="bs-docs-section magical" id="formContainer">
         {% if items == [] %}
-        <h1>No items in closet. Would you like to <a href="/createItemForm">add some?</a></h1>
+          <h1>No items in closet. Would you like to <a href="/createItemForm">add some?</a></h1>
         {% endif %}
-        {% for item in items %}
-          <canvas height="300px" width="200px"></canvas>
-          <form>
-            <input type="hidden" name="hexValue" value={{item.hexValue}}>
-            <input type="hidden" name="topBottom" value={{item.topBottom}}>
-            <input type="hidden" name="longShort" value={{item.longShort}}>
-            <input type="hidden" name="pattern" value={{item.pattern}}>
-          </form>
-        {% endfor %}
-        <!--<table class="table table-striped"> 
-        {% for item in items %} 
-          <tr>
-            <td class={{ item.availability }}>
-              <canvas height="150px" width="100px"></canvas>
-            </td> 
-          </tr> 
-        {% endfor %}
-        </table>-->
-
+        <form id="deleteItems" action="deleteItems">
+          <input type="submit" name="submit" id="submitButton" value="Delete Selected Items">
+          <br>
+          {% for item in items %}
+            <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
+            <input type="checkbox" name="checkbox" value={{item.key}}>
+          {% endfor %}
+        </form>
       </div>
-    </div>
     <div class="push"></div>
   </div>
   {{footer}}

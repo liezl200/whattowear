@@ -64,6 +64,16 @@ class ViewItemsHandler(webapp2.RequestHandler):
     template_values['items'] = items
     template = jinja_environment.get_template('viewItems.html')
     self.response.out.write(template.render(template_values))
+class DeleteItemsHandler(webapp2.RequestHandler):
+  def get(self):
+    template_values = {"header": header.getHeader('/deleteItems'), "footer":header.getFooter()}
+    checkboxArray = self.request.get_all('checkbox')
+    for it in checkboxArray:
+      logging.info(it)
+      item = Item.get_by_id(it)
+      item.delete()
+    template = jinja_environment.get_template('viewItems.html')
+    #self.response.out.write(template.render(template_values))
 class AboutHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/about'), "footer":header.getFooter()}
