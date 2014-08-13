@@ -1,4 +1,3 @@
-var colorBoxArray;
 var lastRGB = [-1, -1, -1];
 var lastBorderColor = 0;
 var colorWheel;
@@ -63,26 +62,23 @@ function changeColor(r, g, b)
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var newBorderColor = Math.floor((255 - (r+g+b)/3)/2);
-    if(lastBorderColor != newBorderColor)
+    var newBorderColor = ((r+g+b)/3 > 100?0:255);
+    for(var i = 0; i < imageData.data.length; i += 4)
     {
-        for(var i = 0; i < imageData.data.length; i += 4)
+        if(imageData.data[i+3] < 1)
+            continue;
+        if(imageData.data[i] == lastBorderColor && imageData.data[i+1] == lastBorderColor 
+            && imageData.data[i+2] == lastBorderColor)
         {
-            if(imageData.data[i+3] < 1)
-                continue;
-            if(imageData.data[i] == lastBorderColor && imageData.data[i+1] == lastBorderColor 
-                && imageData.data[i+2] == lastBorderColor)
-            {
-                imageData.data[i] = newBorderColor;
-                imageData.data[i+1] = newBorderColor;
-                imageData.data[i+2] = newBorderColor;
-            }
-            else
-            {
-                imageData.data[i] = r;
-                imageData.data[i+1] = g;
-                imageData.data[i+2] = b;
-            }
+            imageData.data[i] = newBorderColor;
+            imageData.data[i+1] = newBorderColor;
+            imageData.data[i+2] = newBorderColor;
+        }
+        else
+        {
+            imageData.data[i] = r;
+            imageData.data[i+1] = g;
+            imageData.data[i+2] = b;
         }
     }
     lastBorderColor = newBorderColor;
@@ -97,7 +93,7 @@ function colorOnChange(raphaelRGB)
     var r = raphaelRGB.r;
     var g = raphaelRGB.g;
     var b = raphaelRGB.b;
-    changeColor(r, g, b)
+    changeColor(r, g, b);
 }
 
 function onClick()
