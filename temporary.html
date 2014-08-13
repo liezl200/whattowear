@@ -13,11 +13,15 @@
     <script type="text/javascript" src="static/colorwheel.js"></script>
     <link rel="stylesheet" href="/static/sitestyle.css">
 
-    <img src="static/tankTop.png" id="toptank" class="clothing"/>
+    <img src="static/tankTop.png" id="topshortshort" class="clothing"/>
     <img src="static/shortSleeveTShirt.png" id="topshort" class="clothing"/>
+    <img src="static/shortshorts.png" id="bottomshortshort" class="clothing"/>
     <img src="static/shorts.png" id="bottomshort" class="clothing"/>
     <img src="static/longSleeveTShirt.png" id="toplong" class="clothing"/>
     <img src="static/pants.png" id="bottomlong" class="clothing"/>
+    <img src="static/longdress.png" id="dresslong" class="clothing"/>
+    <img src="static/shortdress.png" id="dressshort" class="clothing"/>
+    <img src="static/shortshortdress.png" id="dressshortshort" class="clothing"/>
 </head>
 
 <body onload="main()">
@@ -40,10 +44,14 @@
             Is your clothing item a: </br>
             <input type="radio" name='topbottom' value='top' checked="checked"> Top?
             <input type="radio" name='topbottom' value='bottom'> Bottom?
+            
+            <input type="radio" name='topbottom' value='dress'> Dress?
             <br><br>
             Is your clothing item: </br>
-            <input type="radio" name='longshort' value='short' checked="checked"> Short?
-            <input type="radio" name='longshort' value='long'> Long?
+            
+            <input type="radio" name='longshort' value='long' checked="checked"> Long?
+            <input type="radio" name='longshort' value='short'> Short?
+            <input type="radio" name='longshort' value='shortshort'> Short-short?
             <br>
             <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
             <br>
@@ -53,21 +61,22 @@
             <div style="height:200px; width:200px;" id='colorSelector'></div>
             <br>
             Select a pattern: </br>
-            <input type="radio" name='patternSelector' value='floral' checked="checked"> Floral
+            <input type="radio" name='patternSelector' value='none' checked="checked"> No pattern
+            <input type="radio" name='patternSelector' value='floral'> Floral
             <input type="radio" name='patternSelector' value='verticalstripes'> Vertical stripes
             <input type="radio" name='patternSelector' value='horizontalstripes'> Horizontal stripes
             <input type="radio" name='patternSelector' value='plaid'> Plaid
             <br><br>
-            <input type="submit" id="submitButton" name="Add Item">
+            <input type="submit" id="submitButton" name="Add Item" style="margin-bottom:20px;">
             <input type="hidden" name="color" id="hiddenColor">
         </form>
 
-        {% if longorshort %}
+        <!--{% if longorshort %}
             <div class="status">
               You created a <strong>{{nameofcolor}}<strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
             </div>
             <br><br>
-        {% endif %}
+        {% endif %}-->
     </div>
 </div>
     

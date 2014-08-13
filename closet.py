@@ -49,7 +49,6 @@ class CreateItemHandler(webapp2.RequestHandler):
     user = users.get_current_user()
     logging.info(user)
 
-    template_values['nameofcolor'] = colorName
     template_values['toporbottom'] = topBottom
     template_values['longorshort'] = longShort
 

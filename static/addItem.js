@@ -39,7 +39,7 @@ function removeWaterMark()
     {
         if(imageData.data[i+3] < 1)
             continue;
-        if(imageData.data[i] < 210 && imageData.data[i+1] < 210 && imageData.data[i+2] < 210)
+        if(imageData.data[i] < 180 && imageData.data[i+1] < 180 && imageData.data[i+2] < 180)
         {
             imageData.data[i] = 0;
             imageData.data[i+1] = 0;
@@ -47,17 +47,14 @@ function removeWaterMark()
         }
         else
         {
-            imageData.data[i] = 254;
-            imageData.data[i+1] = 254;
-            imageData.data[i+2] = 254;
+            imageData.data[i] = 255;
+            imageData.data[i+1] = 255;
+            imageData.data[i+2] = 255;
         }
-        //if(imageData.data[i] == 255 && imageData.data[i+1] == 254 && imageData.data[i+2] == 252)
-        //    continue;
-        
     }
-    lastRGB[0] = 254;
-    lastRGB[1] = 254;
-    lastRGB[2] = 254;
+    lastRGB[0] = 255;
+    lastRGB[1] = 255;
+    lastRGB[2] = 255;
     ctx.putImageData(imageData, 0, 0);
 }
 
@@ -66,41 +63,29 @@ function changeColor(r, g, b)
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var changeBorder = false;
-    var light = false
-    if(r + g + b < 200 && lastBorderColor == 0)
+    var newBorderColor = Math.floor((255 - (r+g+b)/3)/2);
+    if(lastBorderColor != newBorderColor)
     {
-        changeBorder = true;
-        light = true;
-    }
-    else if(r + g + b >= 200 && lastBorderColor == 255)
-        changeBorder = true;
-    for(var i = 0; i < imageData.data.length; i += 4)
-    {
-        if(imageData.data[i+3] < 1)
-            continue;
-        if(changeBorder)
+        for(var i = 0; i < imageData.data.length; i += 4)
         {
-            var newBorderColor = 0;
-            if(light)
-                newBorderColor = 255;
+            if(imageData.data[i+3] < 1)
+                continue;
             if(imageData.data[i] == lastBorderColor && imageData.data[i+1] == lastBorderColor 
                 && imageData.data[i+2] == lastBorderColor)
             {
                 imageData.data[i] = newBorderColor;
                 imageData.data[i+1] = newBorderColor;
                 imageData.data[i+2] = newBorderColor;
-                lastBorderColor = newBorderColor;
+            }
+            else
+            {
+                imageData.data[i] = r;
+                imageData.data[i+1] = g;
+                imageData.data[i+2] = b;
             }
         }
-        if(imageData.data[i] != lastBorderColor && imageData.data[i+1] != lastBorderColor 
-            && imageData.data[i+2] != lastBorderColor)
-        {
-            imageData.data[i] = r;
-            imageData.data[i+1] = g;
-            imageData.data[i+2] = b;
-        }
     }
+    lastBorderColor = newBorderColor;
     lastRGB[0] = r;
     lastRGB[1] = g;
     lastRGB[2] = b;
@@ -119,7 +104,7 @@ function onClick()
 {
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext('2d');
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     var imageId = "";
     imageId += longShortString();
     imageId += topBottomString();
@@ -134,7 +119,8 @@ function onClick()
 function onSubmit()
 {
     var hiddenColor = document.getElementById('hiddenColor');
-    hiddenColor.value = toHex(lastRGB[0], lastRGB[1], lastRGB[2]);
+    var hex = toHex(lastRGB[0], lastRGB[1], lastRGB[2]);
+    hiddenColor.value = hex;
 }
 
 function topBottomString()
@@ -167,5 +153,17 @@ function longShortString()
 
 function toHex(r, g, b)
 {
-    return r.toString(16) + g.toString(16) + b.toString(16);
+    r = Math.floor(r);
+    g = Math.floor(g);
+    b = Math.floor(b);
+    var rString = r.toString(16);
+    if(rString.length < 2)
+        rString = "0" + rString;
+    var gString = g.toString(16);
+    if(gString.length < 2)
+        gString = "0" + gString;
+    var bString = b.toString(16);
+    if(bString.length < 2)
+        bString = "0" + bString;
+    return  rString + gString + bString;
 }
