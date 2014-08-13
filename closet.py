@@ -19,6 +19,7 @@ import os
 import header
 import webapp2
 import logging
+import random
 from main import *
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -72,6 +73,38 @@ class AboutHandler(webapp2.RequestHandler):
 class ProfileHandler (webapp2.RequestHandler):
   def get(self): 
     template_values['current_user'] = users.get_current_user()
+
+def GenerateColors(color):
+  generated = []
+  R = color[:2]
+  G = color[3:5]
+  B = color[4:]
+  #color0 = R + G + B
+  #generated = generated.append(color0)
+  color1 = B + G + R
+  generated = generated.append(color1)
+  color2 = G + B + R
+  generated = generated.append(color2)
+  return generated
+
+def ColorSimilarity(test_color, target_color): #used to calculate similarity of colours from matching colours returned by GenerateColors
+  diff_R = abs(int(test_color[:2], 16) - int(target_color[:2], 16))
+  diff_G = abs(int(test_color[3:5], 16) - int(target_color[3:5], 16))
+  diff_B = abs(int(test_color[4:], 16) - int(target_color[4:], 16))
+  sim_score = diff_R + diff_G + diff_B
+  return sim_score 
+
+def MatchColors(): #returns a list of similar colours based on randomly selected first colour
+  results = list(Item.query().filter(Item.user == users.get_current_user()).fetch())
+  startWith = results[random.randint(0,len(results))] #randomly select the first color to start with
+  compatible = {startsWith.key : GenerateColors(startsWith.hexValue)}
+  for item in results:
+    for  in compatible[each_color]:
+      ColorSimilarity(startWith, result)
+      closest_match.append()
+
+
+
 
 jinja_environment = jinja2.Environment(loader=
       jinja2.FileSystemLoader(os.path.dirname(__file__)))
