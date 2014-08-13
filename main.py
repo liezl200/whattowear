@@ -60,6 +60,18 @@ class SettingsHandler(webapp2.RequestHandler):
     template = closet.jinja_environment.get_template('settings.html')
     self.response.out.write(template.render(template_values))
 
+class OutfitsHandler(webapp2.RequestHandler):
+  def get(self):
+    template_values = {"header": header.getHeader('/')}
+    template = closet.jinja_environment.get_template('outfits.html')
+    self.response.out.write(template.render(template_values))
+
+class TheoryHandler(webapp2.RequestHandler):
+  def get(self):
+    template_values = {"header": header.getHeader('/')}
+    template = closet.jinja_environment.get_template('theory.html')
+    self.response.out.write(template.render(template_values))
+
 #jinja_environment = jinja2.Environment(loader=
 #      jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -72,4 +84,6 @@ app = webapp2.WSGIApplication([
   ('/viewItems', closet.ViewItemsHandler),
   ('/about', closet.AboutHandler),
   ('/settings', SettingsHandler),
+  ('/outfits', OutfitsHandler),
+  ('/theory', TheoryHandler)
 ], debug=True)
