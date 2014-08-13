@@ -32,7 +32,7 @@ class MainHandler(webapp2.RequestHandler):
       renderedHeader = renderedHeader.replace('<li><a href="/settings">SETTINGS</a></li>', '')
       renderedHeader = renderedHeader.replace('Logout', 'Login')
       renderedHeader = renderedHeader.replace('LOGOUT', 'LOGIN')
-    template_values = {"header": renderedHeader}
+    template_values = {"header": renderedHeader, "footer":header.getFooter()}
     jpgs = [177, 187, 207, 317, 322, 357, 404, 433]
 
     template_values['randomImg'] = '/static/' + str(jpgs[random.randint(0,7)]) + '.jpg'

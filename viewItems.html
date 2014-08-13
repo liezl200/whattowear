@@ -24,36 +24,41 @@
   </style>
   <script type="text/javascript" src="static/renderItems.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/static/font-awesome.css">
 </head>
 <body onload="renderShirtsMain()">
   {{header}}
-  <div class="container bs-docs-container">
-    <div class="bs-docs-section" id="formContainer">
-      <h1>Closet with All Items</h1>
-      
-      {% for item in items %}
-        <canvas height="150px" width="100px"></canvas>
-        <form>
-          <input type="hidden" name="hexValue" value={{item.hexValue}}>
-          <input type="hidden" name="topBottom" value={{item.topBottom}}>
-          <input type="hidden" name="longShort" value={{item.topShort}}>
-          <input type="hidden" name="pattern" value={{item.pattern}}>
-        </form>
-        {% if loop.index % 3 == 0 %}
-          <br>
-        {% endif %}
-      {% endfor %}
-      <!--<table class="table table-striped"> 
-      {% for item in items %} 
-        <tr>
-          <td class={{ item.availability }}>
-            <canvas height="150px" width="100px"></canvas>
-          </td> 
-        </tr> 
-      {% endfor %}
-      </table>-->
+  <div class="content-wrapper">
+    <div class="container bs-docs-container">
+      <div class="bs-docs-section" id="formContainer">
+        <h1>Closet with All Items</h1>
+        
+        {% for item in items %}
+          <canvas height="150px" width="100px"></canvas>
+          <form>
+            <input type="hidden" name="hexValue" value={{item.hexValue}}>
+            <input type="hidden" name="topBottom" value={{item.topBottom}}>
+            <input type="hidden" name="longShort" value={{item.topShort}}>
+            <input type="hidden" name="pattern" value={{item.pattern}}>
+          </form>
+          {% if loop.index % 3 == 0 %}
+            <br>
+          {% endif %}
+        {% endfor %}
+        <!--<table class="table table-striped"> 
+        {% for item in items %} 
+          <tr>
+            <td class={{ item.availability }}>
+              <canvas height="150px" width="100px"></canvas>
+            </td> 
+          </tr> 
+        {% endfor %}
+        </table>-->
+      </div>
     </div>
+    <div class="push"></div>
   </div>
+  {{footer}}
 
 </body>
 </html>

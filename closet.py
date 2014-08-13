@@ -35,13 +35,13 @@ class Item(ndb.Model):
   user = ndb.UserProperty(required=True)
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
-    template_values = {"header": header.getHeader('/createItemForm')}
+    template_values = {"header": header.getHeader('/createItemForm'), "footer": header.getFooter()}
     template = jinja_environment.get_template('temporary.html')
     #template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {"header": header.getHeader('/createItem')}
+    template_values = {"header": header.getHeader('/createItem'), "footer": header.getFooter()}
     color = self.request.get('color')
     colorName = self.request.get('colorName')
     topBottom = self.request.get('topbottom')
@@ -61,7 +61,7 @@ class CreateItemHandler(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 class ViewItemsHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {"header": header.getHeader('/viewItems')}
+    template_values = {"header": header.getHeader('/viewItems'), "footer":header.getFooter()}
     query = Item.query().filter(Item.user == users.get_current_user())
     items = query.fetch()
     template_values['items'] = items
@@ -69,7 +69,7 @@ class ViewItemsHandler(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 class AboutHandler(webapp2.RequestHandler):
   def get(self):
-    template_values = {"header": header.getHeader('/about')}
+    template_values = {"header": header.getHeader('/about'), "footer":header.getFooter()}
     template = jinja_environment.get_template('about.html')
     self.response.out.write(template.render(template_values))
 class ProfileHandler (webapp2.RequestHandler):
