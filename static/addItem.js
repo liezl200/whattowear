@@ -1,6 +1,7 @@
 var lastRGB = [-1, -1, -1];
 var lastBorderColor = 0;
 var colorWheel;
+var pattern = 'none'
 
 function main()
 {
@@ -15,7 +16,7 @@ function initializeHandlers()
     for(var i = 0; i < mainform.elements.length; i++)
     {
         var name = mainform.elements[i].name;
-        if(name === "topbottom" || name === "longshort")
+        if(name === "topbottom" || name === "longshort" || name === "patternSelector")
             mainform.elements[i].onclick = onClick;
         else if(name === "Add Item")
             mainform.elements[i].onclick = onSubmit;
@@ -86,6 +87,18 @@ function changeColor(r, g, b)
     lastRGB[1] = g;
     lastRGB[2] = b;
     ctx.putImageData(imageData, 0, 0);
+    drawPattern(ctx)
+}
+
+function drawPattern(ctx)
+{
+    if(pattern === 'none')
+        return;
+    else
+    {
+        var image = document.getElementById(pattern)
+        ctx.drawImage(image, 0, 0, 40, 40);
+    }
 }
 
 function colorOnChange(raphaelRGB)
@@ -104,12 +117,14 @@ function onClick()
     var imageId = "";
     imageId += longShortString();
     imageId += topBottomString();
+    pattern = getPattern();
     var image = document.getElementById(imageId);
-
     ctx.fillStyle = "rgba(255,255,255,0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, 0, 10, 190, 260);
     removeWaterMark();
+    changeColor(lastRGB[0], lastRGB[1], lastRGB[2])
+    drawPattern(ctx);
 }
 
 function onSubmit()
@@ -139,6 +154,20 @@ function longShortString()
     for(var i = 0; i < form.length; i++)
     {
         if(form.elements[i].name === "topbottom")
+        {
+            if(form.elements[i].checked)
+                return form.elements[i].value;
+        }
+    }
+    return "ERROR";
+}
+
+function getPattern()
+{
+    var form = document.getElementById("createItem");
+    for(var i = 0; i < form.length; i++)
+    {
+        if(form.elements[i].name === "patternSelector")
         {
             if(form.elements[i].checked)
                 return form.elements[i].value;

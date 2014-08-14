@@ -1,7 +1,6 @@
 function renderShirtsMain()
 {
     var container = document.getElementById('deleteItems');
-    var submitButton = container.elements[0];
     var canvases = document.getElementsByTagName("canvas");
     for(var i = 0; i < canvases.length; i++) 
     {
@@ -20,10 +19,9 @@ function renderShirtsMain()
         var topOrBottom = parameterArray[1];
         var longOrShort = parameterArray[2];
         var pattern = parameterArray[3];
-        removeWaterMark(canvas, topOrBottom, longOrShort, pattern);
-        drawShirt(canvas, rgb[0], rgb[1], rgb[2]);   
+        removeWaterMark(canvas, topOrBottom, longOrShort);
+        drawShirt(canvas, rgb[0], rgb[1], rgb[2], pattern);   
     }
-    submitButton.onclick = onSubmit;
 }
 
 function getRGB(hex)
@@ -35,7 +33,7 @@ function getRGB(hex)
     return rgbArray;
 }
 
-function drawShirt(canvas, r, g, b)
+function drawShirt(canvas, r, g, b, pattern)
 {
     var ctx = canvas.getContext('2d');
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -59,9 +57,10 @@ function drawShirt(canvas, r, g, b)
         }
     }
     ctx.putImageData(imageData, 0, 0);
+    drawPattern(ctx, pattern);
 }
 
-function removeWaterMark(canvas, topOrBottom, longOrShort, pattern)
+function removeWaterMark(canvas, topOrBottom, longOrShort)
 {
     var ctx = canvas.getContext('2d');
     var imageId = "";
@@ -90,14 +89,13 @@ function removeWaterMark(canvas, topOrBottom, longOrShort, pattern)
     ctx.putImageData(imageData, 0, 0);
 }
 
-function onSubmit()
+function drawPattern(ctx, pattern)
 {
-    /*var container = document.getElementById("deleteItems");
-    for(var i = 2; i < container.children.length; i += 6)
+    if(pattern === 'none')
+        return;
+    else
     {
-        if(container.children[i].tagName === "BR")
-            i += 1;
-        var checkBox = container.elements[i+5];
-        if(checkBox.checked)
-    }*/
+        var image = document.getElementById(pattern)
+        ctx.drawImage(image, 0, 0, 40, 40);
+    }
 }
