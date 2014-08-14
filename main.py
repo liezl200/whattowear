@@ -67,8 +67,10 @@ class OutfitsHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/'), "footer": header.getFooter()}
     template = closet.jinja_environment.get_template('outfits.html')
-    query = Outfit.query().filter(Outfit.user == users.get_current_user())
+    query = closet.Outfit.query().filter(closet.Outfit.user == users.get_current_user())
     items = query.fetch()
+    tomorrowsOutfit = None
+    todaysOutfit = None
     today = True
     tomorrow = False
     for i in range(0, len(items)):
@@ -76,17 +78,20 @@ class OutfitsHandler(webapp2.RequestHandler):
         items[i].key.delete()
       elif(items[i].date == datetime.date.today()):
         today = False
-      elif(items[i].date == datetime.date.today() + timedelta(days=1)):
+      elif(items[i].date == datetime.date.today() + datetime.timedelta(days=1)):
         tomorrow = False
+    logging.info(today)
+    logging.info(tomorrow)
     if(today):
       todaysOutfit = closet.getOutfit("today")
       todaysOutfit.put()
+
     if(tomorrow):
       tomorrowsOutfit = closet.getOutfit("tomorrow")
       tomorrowsOutfit.put()
 
     template_values['todaysRecommendation'] = todaysOutfit
-    template_values['tomorrowssRecommendation'] = tomorrowsOutfit#CHANGE TO TOMORROW
+    template_values['tomorrowsRecommendation'] = tomorrowsOutfit#CHANGE TO TOMORROW
 
     self.response.out.write(template.render(template_values))
 
