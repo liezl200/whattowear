@@ -84,11 +84,11 @@ class AboutHandler(webapp2.RequestHandler):
 class ProfileHandler (webapp2.RequestHandler):
   def get(self): 
     template_values['current_user'] = users.get_current_user()
-'''
-def GenerateColors(color):
+
+def generateColors(color):
   generated = []
   R = color[:2]
-  G = color[3:5]
+  G = color[2:4]
   B = color[4:]
   #color0 = R + G + B
   #generated = generated.append(color0)
@@ -98,21 +98,53 @@ def GenerateColors(color):
   generated = generated.append(color2)
   return generated
 
-def ColorSimilarity(test_color, target_color): #used to calculate similarity of colours from matching colours returned by GenerateColors
+def colorSimilarity(test_color, target_color): #used to calculate similarity of colours from matching colours returned by generateColors
   diff_R = abs(int(test_color[:2], 16) - int(target_color[:2], 16))
-  diff_G = abs(int(test_color[3:5], 16) - int(target_color[3:5], 16))
+  diff_G = abs(int(test_color[2:4], 16) - int(target_color[3:5], 16))
   diff_B = abs(int(test_color[4:], 16) - int(target_color[4:], 16))
   sim_score = diff_R + diff_G + diff_B
   return sim_score 
 
-def MatchColors(): #returns a list of similar colours based on randomly selected first colour
-  results = list(Item.query().filter(Item.user == users.get_current_user()).fetch())
-  startWith = results[random.randint(0,len(results))] #randomly select the first color to start with
-  compatible = {startsWith.key : GenerateColors(startsWith.hexValue)}
-  for item in results:
-    for  in compatible[each_color]:
-      ColorSimilarity(startWith, result)
-      closest_match.append() '''
+def whichGray(hexVal):
+  #first determine if it is a monochrome/ bw piece
+  R = int(hexVal[:2], 16)
+  G = int(hexVal[2:4], 16)
+  B = int(hexVal[4:], 16)
+  l = [R, G, B]
+  avg = float(sum(l))/ len(l)
+  if avg < 35:
+      return "black"
+  if abs(R-G) < 30 and abs(G-B) < 30:
+    if avg > 200:
+      return "white"
+    else:
+      return "gray"
+  return "colored"
+
+def matchColors(): #returns a decent clothing match with compatible colors
+  items = list(Item.query().filter(Item.user == users.get_current_user()).fetch())
+  random.shuffle(items) #shuffle the items so that different combinations could be found
+  compatible = {}
+  for item in items:
+    compatible[item.key] = generateColors(item.hexValue) # get the compatibility values
+  #matches = []
+  for currentBaseItem in items:
+    for item in items:
+      if currentBaseItem == item or currentBaseItem.topBottom == item.topBottom:
+        break
+      firstSim = colorSimilarity(currentBaseItem.hexValue, compatible[item.key][0])
+      secondSim = colorSimilarity(currentBaseItem.hexValue, compatible[item.key][1])
+      if firstSim < 60:
+        return (firstSim, currentBaseItem, item, 0)
+      if secondSim < 60:
+        return (secondSim, currentBaseItem, item, 1)
+  return () #default blue pants + any shirt
+'''
+        matches.append(
+        (min([firstSim, secondSim]), currentBaseItem, item)
+      )
+  return matches.sort()
+'''
 
 
 
