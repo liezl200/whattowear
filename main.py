@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import datetime
 import jinja2
 import urllib2
 import json
@@ -66,6 +67,26 @@ class OutfitsHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/'), "footer": header.getFooter()}
     template = closet.jinja_environment.get_template('outfits.html')
+    query = Outfit.query().filter(Outfit.user == users.get_current_user())
+    items = query.fetch()
+    today = True
+    tomorrow = False
+    for i in range(0, len(items)):
+      if(items[i].date < datetime.date.today()):
+        items[i].key.delete()
+      elif(items[i].date == datetime.date.today()):
+        today = False
+      elif(items[i].date == datetime.date.today() + timedelta(days=1)):
+        tomorrow = False
+    if(today):
+      todaysOutfit = closet.getOutfit("today")
+      todaysOutfit.put()
+    if(tomorrow):
+      tomorrowsOutfit = closet.getOutfit("tomorrow")
+      tomorrowsOutfit.put()
+
+    template_values['todaysRecommendation'] = todaysOutfit
+    template_values['tomorrowssRecommendation'] = tomorrowsOutfit#CHANGE TO TOMORROW
 
     self.response.out.write(template.render(template_values))
 

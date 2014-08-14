@@ -40,7 +40,7 @@
           <form id="deleteItems" action="deleteItems">
           <input type="submit" name="submit" id="submitButton" value="Delete Selected Items">
           <br>
-          <h2><b>Shirts</b></h2>
+          <h2>Shirts</h2>
           {% for item in items %}
             {% if item.topBottom == 'top' %}
               <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
@@ -48,7 +48,7 @@
             {% endif %}
           {% endfor %}
           <br>
-          <h2><b>Shorts</b></h2>
+          <h2>Shorts</h2>
           {% for item in items %}
             {% if item.topBottom == 'bottom' and (item.longShort == 'short' or item.longShort == 'shortshort') %}
               <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
@@ -56,14 +56,14 @@
             {% endif %}
           {% endfor %}
           <br>
-          <h2><b>Pants</b></h2>
+          <h2>Pants</h2>
           {% for item in items %}
             {% if item.topBottom == 'bottom' and item.longShort == 'long' %}
               <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>
               <input type="checkbox" name="checkbox" value={{item.key.id()}}>
             {% endif %}
           {% endfor %}
-          <h2><b>Dresses</b></h2>
+          <h2>Dresses</h2>
           {% for item in items %}
             {% if item.topBottom == 'dress' %}
               <canvas height="300px" width="200px" name="canvas" id="{{item.hexValue}}:{{item.topBottom}}:{{item.longShort}}:{{item.pattern}}"></canvas>

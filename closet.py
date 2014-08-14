@@ -33,6 +33,15 @@ class Item(ndb.Model):
   longShort = ndb.StringProperty(required=True)
   pattern = ndb.StringProperty(required=True)
   user = ndb.UserProperty(required=True)
+class Outfit(ndb.Model):
+  hexTop = ndb.StringProperty(required=True)
+  hexBottom = ndb.StringProperty(required=True)
+  longShortTop = ndb.StringProperty(required=True)
+  longShortBottom = ndb.StringProperty(required=True)
+  patternTop = ndb.StringProperty(required=True)
+  patternBottom = ndb.StringProperty(required=True)
+  user = ndb.UserProperty(required=True)
+  date = ndb.DateProperty(required=True)
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
     template_values = {"header": header.getHeader('/createItemForm'), "footer": header.getFooter()}
