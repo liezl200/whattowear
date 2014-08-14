@@ -45,7 +45,7 @@ footer = '''
       <iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=47.6097&lon=122.3331&name=Seattle&color=teal"> </iframe>
     </div>
   </div>
-  <div class="col-lg-4" style="background-color: white; z-index: 4; height: 245px;">
+  <div class="col-lg-4" style="background-color: white; z-index: 4; height: 288px;">
     <p style="color:grey;">
       </br>
       Hello, there!</br>
