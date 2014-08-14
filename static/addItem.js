@@ -14,6 +14,7 @@ function main()
 function initializeHandlers()
 {
     window.addEventListener('resize', onResize)
+    window.addEventListener('scroll', onScroll)
     var mainform = document.getElementById("createItem");
     for(var i = 0; i < mainform.elements.length; i++)
     {
@@ -196,8 +197,13 @@ function onResize()
 {
     var colorBoxDiv = document.getElementById('colorWheelBox');
     var canvas = document.getElementById('canvas');
-    var top = (canvas.offsetTop - 20) + 'px';   
+    var top = (canvas.offsetTop - 20 - window.scrollY) + 'px';   
     var left = (canvas.offsetLeft + canvas.width + 88) + 'px';
     colorBoxDiv.style.left = left;
     colorBoxDiv.style.top = top;
+}
+
+function onScroll()
+{
+    onResize();
 }
