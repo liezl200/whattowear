@@ -100,7 +100,7 @@ def generateColors(color):
 
 def colorSimilarity(test_color, target_color): #used to calculate similarity of colours from matching colours returned by generateColors
   diff_R = abs(int(test_color[:2], 16) - int(target_color[:2], 16))
-  diff_G = abs(int(test_color[2:4], 16) - int(target_color[3:5], 16))
+  diff_G = abs(int(test_color[2:4], 16) - int(target_color[2:4], 16))
   diff_B = abs(int(test_color[4:], 16) - int(target_color[4:], 16))
   sim_score = diff_R + diff_G + diff_B
   return sim_score 
