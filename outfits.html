@@ -3,22 +3,73 @@
     <title>Outfits</title>
     <script src="/static/jquery-1.11.1.min.js"></script>
     <script src="/static/bootstrap.min.js"></script>
+    <script src="/static/renderItems.js"></script>
     <link rel="stylesheet" href="/static/bootstrap.min.css">
     <link rel="stylesheet" href="/static/sitestyle.css">
     <link rel="stylesheet" href="/static/font-awesome.css">
+    <link rel="stylesheet" href="static/temporarystyle.css">
+
+    <style>
+      .font1{
+        display: inline-block;
+        font-size: 20px;
+      }
+      .font2{
+        display: inline-block;
+        margin-left: 20px;
+        font-size: 20px;
+      }
+      .canvas1{
+        margin-left: 25px;
+      }
+      .canvas2{
+        margin-left: 72px;
+      }
+    </style>
+
+    <script>
+      function setUp(){
+        document.getElementById('generateNewOutfitButton').onclick = onSubmit;
+        renderShirtsMain();
+      }
+
+      function onSubmit(){
+        document.getElementById('hiddenInput').value = "true";
+      }
+    </script>
+
+    <img src="static/tankTop.png" id="topshortshort" class="clothing"/>
+    <img src="static/shortSleeveTShirt.png" id="topshort" class="clothing"/>
+    <img src="static/shortshorts.png" id="bottomshortshort" class="clothing"/>
+    <img src="static/shorts.png" id="bottomshort" class="clothing"/>
+    <img src="static/longSleeveTShirt.png" id="toplong" class="clothing"/>
+    <img src="static/pants.png" id="bottomlong" class="clothing"/>
+    <img src="static/longdress.png" id="dresslong" class="clothing"/>
+    <img src="static/shortdress.png" id="dressshort" class="clothing"/>
+    <img src="static/shortshortdress.png" id="dressshortshort" class="clothing"/>
+    <img src="static/flower.png" id="floral" class="clothing"/>
+    <img src="static/plaid.png" id="plaid" class="clothing"/>
+    <img src="static/horizontalstripes.png" id="horizontalstripes" class="clothing"/>
+    <img src="static/verticalstripes.png" id="verticalstripes" class="clothing"/>
+
   </head>
-  <body onload ="renderShirtsMain()">
+  <body onload ="setUp()">
     {{header}}
     <div class="content-wrapper">
       <div class="container bs-docs-container">
         <div class="bs-docs-section">
             {% if todaysRecommendation != None and tomorrowsRecommendation != None %}
-              <h1 style="margin-right:100px">Todays Recommendation</h1><h1>Tomorrow's Recommendation</h1>
-              <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexTop}}:top:{{todaysRecommendation.longShortTop}}:{{todaysRecommendation.patternTop}}"></canvas>
-              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecommendation.hexTop}}:top:{{tomorrowsRecommendation.longShortTop}}:{{tomorrowsRecommendation.patternTop}}"></canvas>
+              <div class="font1">Todays Recommendation</div><div class="font2">Tomorrow's Recommendation</div>
               <br>
-              <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexBottom}}:bottom:{{todaysRecommendation.longShortBottom}}:{{todaysRecommendation.patternBottom}}"></canvas>
-              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecommendation.hexBottom}}:bottom:{{tomorrowsRecommendation.longShortBottom}}:{{tomorrowsRecommendation.patternBottom}}"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexTop}}:top:{{todaysRecommendation.longShortTop}}:{{todaysRecommendation.patternTop}}" class="canvas1"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecommendation.hexTop}}:top:{{tomorrowsRecommendation.longShortTop}}:{{tomorrowsRecommendation.patternTop}}" class="canvas2"></canvas>
+              <br>
+              <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexBottom}}:bottom:{{todaysRecommendation.longShortBottom}}:{{todaysRecommendation.patternBottom}}" class="canvas1"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecommendation.hexBottom}}:bottom:{{tomorrowsRecommendation.longShortBottom}}:{{tomorrowsRecommendation.patternBottom}}" class="canvas2"></canvas>
+              <form action="outfits" id="generateNewOutfit">
+                <input type="submit" name="submit" id="generateNewOutfitButton" value="Generate New Outfits">
+                <input type="hidden" id="hiddenInput" name="hiddenInput" value="false">
+              </form>
             {% else %}
               <h1>You don't have enough clothes for an outfit!</h1>
             {% endif %}
