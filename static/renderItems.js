@@ -1,6 +1,9 @@
 function renderShirtsMain()
 {
     var canvases = document.getElementsByTagName("canvas");
+    var checkboxes = document.getElementsByName("checkbox");
+    for(var i = 0 ; i < checkboxes.length; i++)
+        checkboxes[i].onclick = onClick;
     for(var i = 0; i < canvases.length; i++) 
     {
         var canvas = canvases[i];
@@ -39,7 +42,7 @@ function drawShirt(canvas, r, g, b, pattern)
     var borderColor = ((r+g+b)/3 > 100?0:130);
     for(var i = 0; i < imageData.data.length; i += 4)
     {
-        if(imageData.data[i+3] < 1)
+        if(imageData.data[i+3] < 25)
             continue;
         if(imageData.data[i] == 0 && imageData.data[i+1] == 0
             && imageData.data[i+2] == 0)
@@ -70,7 +73,7 @@ function removeWaterMark(canvas, topOrBottom, longOrShort)
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     for(var i = 0; i < imageData.data.length; i += 4)
     {
-        if(imageData.data[i+3] < 1)
+        if(imageData.data[i+3] < 25)
             continue;
         if(imageData.data[i] < 180 && imageData.data[i+1] < 180 && imageData.data[i+2] < 180)
         {
@@ -96,5 +99,43 @@ function drawPattern(ctx, pattern)
     {
         var image = document.getElementById(pattern)
         ctx.drawImage(image, 0, 0, 40, 40);
+    }
+}
+
+function onClick()
+{
+    var checkboxes = document.getElementsByName("checkbox");
+    var canvases = document.getElementsByTagName("canvas");
+    for(var i = 0; i < checkboxes.length; i++)
+    {
+        var ctx = canvases[i].getContext('2d');
+        var imageData = ctx.getImageData(0, 0, canvases[i].width, canvases[i].height);
+        if(!checkboxes[i].checked)
+        {
+            for(var j = 0; j < imageData.data.length; j += 4)
+            {
+                if(imageData.data[j+3] < 25)
+                {
+                    imageData.data[j] = 255;
+                    imageData.data[j+1] = 255;
+                    imageData.data[j+2] = 255;
+                    imageData.data[j+3] = 0;
+                }
+            }
+        }
+        else
+        {            
+            for(var j = 0; j < imageData.data.length; j += 4)
+            {
+                if(imageData.data[j+3] < 25)
+                {
+                    imageData.data[j] = 0;
+                    imageData.data[j+1] = 15;
+                    imageData.data[j+2] = 100;
+                    imageData.data[j+3] = 24;
+                }
+            }
+        }
+        ctx.putImageData(imageData, 0, 0);
     }
 }
