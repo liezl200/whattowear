@@ -1,41 +1,32 @@
 <html>
-<head>
-  <title>Outfits</title>
-  <script src="/static/jquery-1.11.1.min.js"></script>
-  <script src="/static/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/static/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/sitestyle.css">
-  <link rel="stylesheet" href="/static/font-awesome.css">
-  <script>
-    $(document).ready(function(){
-    $('a[href^="#"]').on('click',function (e) {
-      e.preventDefault();
-
-      var target = this.hash,
-      $target = $(target);
-
-      $('html, body').stop().animate({
-          'scrollTop': $target.offset().top
-      }, 900, 'swing', function () {
-          window.location.hash = target;
-        });
-      });
-    });
-  </script>
-</head>
-<body>
-  {{header}}
-  <div class="content-wrapper">
-    <div class="container bs-docs-container">
-      <div class="bs-docs-section">
-        <h1>Tomorrow's Recommendations</h1>
-        {{outfits}}
-        <h1>Past Recommendations</h1>
-        <h1>Favourite Recommendations</h1>
+  <head>
+    <title>Outfits</title>
+    <script src="/static/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/sitestyle.css">
+    <link rel="stylesheet" href="/static/font-awesome.css">
+  </head>
+  <body onload ="renderShirtsMain()">
+    {{header}}
+    <div class="content-wrapper">
+      <div class="container bs-docs-container">
+        <div class="bs-docs-section">
+            {% if todaysRecommendation != None and tomorrowsRecommendation != None %}
+              <h1 style="margin-right:100px">Todays Recommendation</h1><h1>Tomorrow's Recommendation</h1>
+              <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexTop}}:top:{{todaysRecommendation.longShortTop}}:{{todaysRecommendation.patternTop}}"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecomendation.hexTop}}:top:{{tomorrowsRecomendation.longShortTop}}:{{tomorrowsRecomendation.patternTop}}"></canvas>
+              <br>
+              <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexBottom}}:bottom:{{todaysRecommendation.longShortBottom}}:{{todaysRecommendation.patternBottom}}"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecomendation.hexBottom}}:bottom:{{tomorrowsRecomendation.longShortBottom}}:{{tomorrowsRecomendation.patternBottom}}"></canvas>
+            {% else %}
+              <h1>You don't have enough clothes for an outfit!</h1>
+            {% endif %}
+          {{outfits}}
+        </div>
       </div>
+      <div class="push"></div>
     </div>
-    <div class="push"></div>
-  </div>
-  {{footer}}
-</body>
+    {{footer}}
+  </body>
 </html>
