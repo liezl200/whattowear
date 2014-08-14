@@ -20,6 +20,7 @@ import header
 import webapp2
 import logging
 import random
+import datetime
 from main import *
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -27,12 +28,14 @@ from google.appengine.api import users
 def dropItems():
   for i in Item.query().fetch():
       i.key.delete()
+
 class Item(ndb.Model):
   hexValue = ndb.StringProperty(required=True)
   topBottom = ndb.StringProperty(required=True)
   longShort = ndb.StringProperty(required=True)
   pattern = ndb.StringProperty(required=True)
   user = ndb.UserProperty(required=True)
+
 class Outfit(ndb.Model):
   hexTop = ndb.StringProperty(required=True)
   hexBottom = ndb.StringProperty(required=True)
@@ -42,11 +45,13 @@ class Outfit(ndb.Model):
   patternBottom = ndb.StringProperty(required=True)
   user = ndb.UserProperty(required=True)
   date = ndb.DateProperty(required=True)
+
 class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
     template_values = {"header": header.getHeader('/createItemForm'), "footer": header.getFooter()}
     template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
+
 class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/createItem'), "footer": header.getFooter()}
@@ -62,6 +67,7 @@ class CreateItemHandler(webapp2.RequestHandler):
     item.put()
     template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
+
 class ViewItemsHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/viewItems'), "footer":header.getFooter()}
@@ -70,6 +76,7 @@ class ViewItemsHandler(webapp2.RequestHandler):
     template_values['items'] = items
     template = jinja_environment.get_template('viewItems.html')
     self.response.out.write(template.render(template_values))
+
 class DeleteItemsHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/deleteItems'), "footer":header.getFooter()}
@@ -85,11 +92,13 @@ class DeleteItemsHandler(webapp2.RequestHandler):
     template_values['items'] = items
     template = jinja_environment.get_template('viewItems.html')
     self.response.out.write(template.render(template_values))
+
 class AboutHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/about'), "footer":header.getFooter()}
     template = jinja_environment.get_template('about.html')
     self.response.out.write(template.render(template_values))
+
 class ProfileHandler (webapp2.RequestHandler):
   def get(self): 
     template_values['current_user'] = users.get_current_user()
@@ -134,29 +143,61 @@ def matchColors(): #returns a decent clothing match with compatible colors
   items = list(Item.query().filter(Item.user == users.get_current_user()).fetch())
   random.shuffle(items) #shuffle the items so that different combinations could be found
   compatible = {}
+  backup = ("No items")
   for item in items:
     compatible[item.key] = generateColors(item.hexValue) # get the compatibility values
   #matches = []
+  kindofblue = "292278"
   for currentBaseItem in items:
+    returnNextTop = False
     for item in items:
       if currentBaseItem == item or currentBaseItem.topBottom == item.topBottom:
         break
+      if returnNextTop and currentBaseItem.topBottom == "top":
+        return (-3, currentBaseItem, item, 0)
+
+      mono1 = whichGray(currentBaseItem.hexValue)
+      mono2 = whichGray(item.hexValue)
+      if mono1 != "colored" or mono2 != "colored":
+        if mono1 != mono2:
+          return (-2, currentBaseItem, item, 0)
+
+      if currentBaseItem.topBottom == "bottom" and colorSimilarity(currentBaseItem.hexValue, kindofblue) < 60:
+        returnNextTop = True
+      backup = (-1, currentBaseItem, item, 0)
       firstSim = colorSimilarity(currentBaseItem.hexValue, compatible[item.key][0])
       secondSim = colorSimilarity(currentBaseItem.hexValue, compatible[item.key][1])
       if firstSim < 60:
         return (firstSim, currentBaseItem, item, 0)
       if secondSim < 60:
         return (secondSim, currentBaseItem, item, 1)
-  return () #default blue pants + any shirt
-'''
-        matches.append(
-        (min([firstSim, secondSim]), currentBaseItem, item)
-      )
-  return matches.sort()
-'''
+  return backup
 
-
-
+def getOutfit(day):
+  rawTuple = matchColors()
+  if rawTuple[0] == "No items":
+    return None
+  else:
+    if rawTuple[1].topBottom == "bottom":
+      bottom = rawTuple[1]
+      top = rawTuple[2]
+    else:
+      bottom = rawTuple[2]
+      top = rawTuple[1]
+    
+    date = datetime.date.today()
+    if day == "today":
+      date += datetime.timedelta(days=1)
+    return Outfit(
+      hexTop=top.hexValue,
+      hexBottom=bottom.hexValue,
+      longShortTop=top.longShort,
+      longShortBottom=bottom.longShort,
+      patternTop=top.pattern,
+      patternBottom=bottom.pattern,
+      user=users.get_current_user(),
+      date=date,
+    )
 
 jinja_environment = jinja2.Environment(loader=
       jinja2.FileSystemLoader(os.path.dirname(__file__)))
