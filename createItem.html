@@ -35,12 +35,7 @@
             <p> Recently acquired some new things to wear? Enter the information below, and we'll find some outfits for you to show 'em off! </p>
                 <div class="row-fluid">
                     <!--<div width="100px" height="100px" id='colorSelector'></form>-->
-                    {% if longorshort %}
-                        <div class="status">
-                            You created a <strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
-                        </div>
-                        <br><br>
-                    {% endif %}
+                    
                     <form action="createItem" id="createItem">
                       <div class="span6">
                           Is your clothing item a: </br>
@@ -66,7 +61,7 @@
                         <input type="radio" name='patternSelector' value='horizontalstripes'> Horizontal stripes
                         <input type="radio" name='patternSelector' value='plaid'> Plaid
                         <br><br>
-                        <input type="submit" id="submitButton" name="Add Item" style="margin-bottom:20px;">
+                        <input type="submit" id="submitButton" name="Add Item" varlue="Add Item" style="margin-bottom:20px;">
                         <input type="hidden" name="color" id="hiddenColor">
                       </div>
                     </form>
@@ -78,6 +73,12 @@
                 <br><br>
                 {% endif %}-->
               </div>
+              {% if longorshort %}
+                        <div class="status">
+                            <h2>You created a {{longorshort}} {{toporbottom}}</h2>.
+                        </div>
+                        <br><br>
+                    {% endif %} 
     </div>
 </div>
 {{footer}}

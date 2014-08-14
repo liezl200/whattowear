@@ -1,4 +1,4 @@
-var lastRGB = [-1, -1, -1];
+var lastRGB = [255, 255, 255];
 var lastBorderColor = 0;
 var colorWheel;
 var pattern = 'none'
@@ -37,24 +37,21 @@ function removeWaterMark()
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     for(var i = 0; i < imageData.data.length; i += 4)
     {
-        if(imageData.data[i+3] < 1)
+        if(imageData.data[i+3] < 25)
             continue;
         if(imageData.data[i] < 180 && imageData.data[i+1] < 180 && imageData.data[i+2] < 180)
         {
-            imageData.data[i] = 0;
-            imageData.data[i+1] = 0;
-            imageData.data[i+2] = 0;
+            imageData.data[i] = lastBorderColor;
+            imageData.data[i+1] = lastBorderColor;
+            imageData.data[i+2] = lastBorderColor;
         }
         else
         {
-            imageData.data[i] = 255;
-            imageData.data[i+1] = 255;
-            imageData.data[i+2] = 255;
+            imageData.data[i] = lastRGB[0];
+            imageData.data[i+1] = lastRGB[1];
+            imageData.data[i+2] = lastRGB[2];
         }
     }
-    lastRGB[0] = 255;
-    lastRGB[1] = 255;
-    lastRGB[2] = 255;
     ctx.putImageData(imageData, 0, 0);
 }
 
@@ -66,7 +63,7 @@ function changeColor(r, g, b)
     var newBorderColor = ((r+g+b)/3 > 100?0:130);
     for(var i = 0; i < imageData.data.length; i += 4)
     {
-        if(imageData.data[i+3] < 1)
+        if(imageData.data[i+3] < 25)
             continue;
         if(imageData.data[i] == lastBorderColor && imageData.data[i+1] == lastBorderColor 
             && imageData.data[i+2] == lastBorderColor)
