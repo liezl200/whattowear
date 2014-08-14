@@ -12,6 +12,9 @@
     <div class="content-wrapper">
       <div class="container bs-docs-container">
         <div class="bs-docs-section">
+            {% if precipitation != None %}
+            <h2 style="color:red;">{{precipitation}}</h2>
+            {% endif %}
             {% if todaysRecommendation != None and tomorrowsRecommendation != None %}
               <h1 style="margin-right:100px">Todays Recommendation</h1><h1>Tomorrow's Recommendation</h1>
               <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexTop}}:top:{{todaysRecommendation.longShortTop}}:{{todaysRecommendation.patternTop}}"></canvas>
