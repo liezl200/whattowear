@@ -35,13 +35,21 @@
         <pre style="width: ">...the property possessed by an object of producing different sensations on the eye as a result of the way the object reflects or emits light.</pre>
         <h3>Math and Colour</h3>
           <p>Mathematicians can solve equations to figure out ways colours can be combined. A colour space refers to a specific combination of colours. A colour model is an abstract, mathematical model that describes the ways that colours can be represented as tuples (e.g. threein RGB, or four in CMYK). </p>
-          <p>As an example, </p>
-          <figure>
-            <img src="static/linear combinations.png" alt="Linear Combinations of Colours"></img>
-            <br>
-            <figcaption>A comparison of linear combinations of three colour-matching functions, illustrating the plethora of unique combinations available. Creds to <a href="http://books.google.com/books?id=L0f9kzOmFUUC&pg=PA27&lpg=PA27&dq=mathematical+basis+of+color+matching&source=bl&ots=RLv6k5zBoC&sig=n336naxSMQQQdnxRiRa9q0FUKDQ&hl=en&sa=X&ei=eqHqU9j8PIigigK904DACA&ved=0CC4Q6AEwAg#v=onepage&q=mathematical%20basis%20of%20color%20matching&f=false">Gerald Fischer</a></figcaption>
-    </figure>
-
+          <p>An equation can be used to model this problem: </p>
+          <p><img src="static/eqn.png"></img></p>
+          <p>As an example, below is the solution to the equation. It is a comparison of linear combinations of three colour-matching functions, illustrating the plethora of unique combinations available. Matches for a set of colours are represented by filled circles. The arrows represent the adaptation as motion in colour space. </p>
+          <p></img></p>(<a href="http://books.google.com/books?id=L0f9kzOmFUUC&pg=PA27&lpg=PA27&dq=mathematical+basis+of+color+matching&source=bl&ots=RLv6k5zBoC&sig=n336naxSMQQQdnxRiRa9q0FUKDQ&hl=en&sa=X&ei=eqHqU9j8PIigigK904DACA&ved=0CC4Q6AEwAg#v=onepage&q=mathematical%20basis%20of%20color%20matching&f=false">Gerald Fischer</a>)</p>
+          <p><img src="static/linear combinations.png" alt="Linear Combinations of Colours"></img><img src="static/colormatches.png" style="height:395;"></img></p>
+        <h3>How We Match Your Clothes</h3>
+          <p>Matching colours is hard. There's a bajillion and a half ways to go about it, but here's a brief outline of how <em>we</em> did it.</p>
+          <ol>
+            <li>Collect a list of all clothing colours</li>
+            <li>Generate a list of all compatible colours to each clothing colour</li>
+            <li>Search through clothing colours for matches or close matches to compatible colours</li>
+            <li>Check for item compatibility (tops with bottoms only, no tops with tops)</li>
+            <li>Render colour co-ordinated clothing matches</li>
+          </ol>
+        </br><img src="static/alg.gif"></img>
     <br>
     <br>
     <br>
