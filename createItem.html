@@ -50,18 +50,17 @@
                           <br>
                           <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
                       </div>
-                      <div class="span6" style="position: absolute; right: 410px; top: 225px;"> 
-                        <p>Select a colour: </p>
+                      <div class="span6" style="position: fixed;" id="colorWheelBox"> 
+                        <p>Select a colour: </p><br>
                         <div style="height:200px; width:200px;" id='colorSelector'></div>
                         <br>
                         Select a pattern:</br>
                         <input type="radio" name='patternSelector' value='none' checked="checked"> No pattern
-                        <input type="radio" name='patternSelector' value='floral'> Floral
-                        <input type="radio" name='patternSelector' value='verticalstripes'> Vertical stripes
-                        <input type="radio" name='patternSelector' value='horizontalstripes'> Horizontal stripes
-                        <input type="radio" name='patternSelector' value='plaid'> Plaid
-                        <br><br>
-                        <input type="submit" id="submitButton" name="Add Item" varlue="Add Item" style="margin-bottom:20px;">
+                        <input type="radio" name='patternSelector' value='floral' style="margin-left:5px;"> Floral
+                        <input type="radio" name='patternSelector' value='verticalstripes' style="margin-left:5px;"> Vertical stripes
+                        <input type="radio" name='patternSelector' value='horizontalstripes' style="margin-left:5px;"> Horizontal stripes
+                        <input type="radio" name='patternSelector' value='plaid' style="margin-left:5px;"> Plaid
+                        <input type="submit" id="submitButton" name="Add Item" value="Add Item" style="margin-left:40px; width:90px;height:30px;">
                         <input type="hidden" name="color" id="hiddenColor">
                       </div>
                     </form>
