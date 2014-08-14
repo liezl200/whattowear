@@ -158,6 +158,8 @@ def matchColors(): #returns a decent clothing match with compatible colors
   kindofblue = "292278"
   for currentBaseItem in items:
     returnNextTop = False
+    if currentBaseItem.topBottom == 'dress':
+      continue
     if float(currWeather['temperature']) < 50: #later on let the user change this in settings
       if currentBaseItem.longShort != 'long':
         continue
@@ -166,6 +168,8 @@ def matchColors(): #returns a decent clothing match with compatible colors
         continue
     logging.info(currentBaseItem.longShort)
     for item in items:
+      if item.topBottom == 'dress':
+        continue
       if float(currWeather['temperature']) < 50: #later on let the user change this in settings
         if item.longShort != 'long':
           continue
