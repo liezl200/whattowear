@@ -24,10 +24,21 @@ header = '''
 <nav class="menu" id="theMenu">
   <div class="menu-wrap">
     
-    <h1 class="logo"><a href="#weather-wrap">WEATHER</a></h1>
+    <h1 class="logo"><a href="#weather-wrap">LATE SUMMER</a></h1>
     <i class="fa fa-arrow-right menu-close"></i>
-    <p>{{{insert weather}}}</p>
-   
+    <p>Blouses and printed tops are coming back in season. Try one with a pair of coloured jeans!</p>
+    <p>Jeans look crisp in darker washes, especially when they fit well.</p>
+    <p>Cardigans are a staple of any season-transitioning wardrobe.</p>
+    <p>Summer dresses can work in cooler dresses with hosiery or leggings!</p>
+    <h1 class="logo"><a href="/theory">TRENDING HUES</a></h1>
+    <ul>
+      <li style="color: #8A4396";>Eggplant</li>
+      <li style="color: #C19A6B";>Camel</li>
+      <li style="color: #800000";>Maroon</li>
+      <li style="color: #D3D3D3";>Greys</li>
+      <li style="color: #FFC0CB";>Pinks</li>
+    </ul>
+
   </div>
   
   <!-- Menu button -->
