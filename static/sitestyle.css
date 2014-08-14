@@ -15,9 +15,11 @@
     src: url(Raleway-Regular.ttf) format('truetype');
 }
 body {
-  font-family: Raleway-Regular;
+  font-family: Raleway-Regular; 
 }
-
+h2 {
+  font-family: Raleway-Regular !important;
+}
 .navbar{
   font-family: Lato-Regular;
   border: 0px;
@@ -204,7 +206,6 @@ body {
   background-color:#DDD;
   z-index:1;
   border-top: 2px solid #EEE;
-  border-right: 2px solid #EEE;
 }
 .content-wrapper{
   min-height:100%;

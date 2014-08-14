@@ -1,6 +1,5 @@
 function renderShirtsMain()
 {
-    var container = document.getElementById('deleteItems');
     var canvases = document.getElementsByTagName("canvas");
     for(var i = 0; i < canvases.length; i++) 
     {
