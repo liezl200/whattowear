@@ -93,10 +93,12 @@ class OutfitsHandler(webapp2.RequestHandler):
     logging.info(tomorrow)
     if(today):
       todaysOutfit = closet.getOutfit("today")
-      todaysOutfit.put()
+      if(todaysOutfit != None):
+        todaysOutfit.put()
     if(tomorrow):
       tomorrowsOutfit = closet.getOutfit("tomorrow")
-      tomorrowsOutfit.put()
+      if(tomorrowsOutfit != None):
+        tomorrowsOutfit.put()
     template_values['todaysRecommendation'] = todaysOutfit
     template_values['tomorrowsRecommendation'] = tomorrowsOutfit#CHANGE TO TOMORROW
     precip = None

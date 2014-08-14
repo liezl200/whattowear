@@ -148,7 +148,7 @@ def matchColors(): #returns a decent clothing match with compatible colors
   items = list(Item.query().filter(Item.user == users.get_current_user()).fetch())
   random.shuffle(items) #shuffle the items so that different combinations could be found
   compatible = {}
-  backup = ("No items")
+  backup = "No items"
   for item in items:
     compatible[item.key] = generateColors(item.hexValue) # get the compatibility values
     logging.info(item.hexValue)
@@ -199,7 +199,7 @@ def matchColors(): #returns a decent clothing match with compatible colors
 def getOutfit(day):
   rawTuple = matchColors()
   logging.info(rawTuple)
-  if rawTuple[0] == "No items":
+  if rawTuple == "No items":
     return None
   else:
     if rawTuple[1].topBottom == "bottom":
