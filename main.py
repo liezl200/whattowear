@@ -94,7 +94,7 @@ class OutfitsHandler(webapp2.RequestHandler):
 
     template_values['todaysRecommendation'] = todaysOutfit
     template_values['tomorrowsRecommendation'] = tomorrowsOutfit#CHANGE TO TOMORROW
-    if float(currWeather['precipProbability']) > 0.1:
+    if float(closet.getWeather()['precipProbability']) > 0.1:
       pass # display a warning to bring a jacket
       currWeather['precipType'] #display this value
     self.response.out.write(template.render(template_values))
