@@ -45,16 +45,13 @@ footer = '''
       <iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=47.6097&lon=122.3331&name=Seattle&color=teal"> </iframe>
     </div>
   </div>
-  <div class="col-lg-4" style="background-color: white; z-index: 4; height: 245px;">
-    <p style="color:white;">
+  <div class="col-lg-4" style="background-color: white; z-index: 4; height: 288px;">
+    <p style="color:grey;">
       </br>
       Hello, there!</br>
       </br>We are a group of rising college freshmen who understand the struggle of picking each day's outfit and want to do our part to relieve the world's fashion-related dilemmas. 
-      </br></br>This project was created by Stud Squad: Alice Ma, Liezl Puzon, and Lukas Munoz. CSSI 2014. </br></br></br>
-      Enjoy! <img src="http://www.iconsdb.com/icons/preview/white/heart-61-xxl.png" width="20">
-    </p>
-    <br>
-    <img src="http://www.google.com/edu/images/programs/cssilogo.png"></img>
+      </br></br>This project was created by Stud Squad: Alice Ma, Liezl Puzon, and Lukas Munoz. Enjoy! </br></br>
+      <img src="http://www.google.com/edu/images/programs/cssilogo.png" width="150px" style="display:inline;"></img></p>
 
   </div>
 </footer>

@@ -99,7 +99,11 @@ class OutfitsHandler(webapp2.RequestHandler):
       tomorrowsOutfit.put()
     template_values['todaysRecommendation'] = todaysOutfit
     template_values['tomorrowsRecommendation'] = tomorrowsOutfit#CHANGE TO TOMORROW
-
+    precip = None
+    currWeather = closet.getWeather()
+    if float(currWeather['precipProbability']) > 0.1:
+      precip = 'You might want to bring a jacket because there is a ' + str(currWeather['precipProbability'] * 100) + '% chance of ' + currWeather['precipType'] + '.'
+    template_values['precipitation'] = precip
     self.response.out.write(template.render(template_values))
 
 class TheoryHandler(webapp2.RequestHandler):
@@ -110,23 +114,7 @@ class TheoryHandler(webapp2.RequestHandler):
 
 #jinja_environment = jinja2.Environment(loader=
 #      jinja2.FileSystemLoader(os.path.dirname(__file__)))
-def getWeather():
-  response = urllib2.urlopen('https://api.forecast.io/forecast/4d13f73fd2b725c8f2030bca99019789/47.6097,122.3331')
-  data = json.load(response)
-  return data['currently']
 
-def selectOutfit():
-  currWeather = getWeather()
-  if float(currWeather['temperature']) < 67: #later on let the user change this in settings
-    pass #select long
-  elif float(currWeather['temperature']) < 83:
-    pass #select short
-  else:
-    pass #select short short
-  if float(currWeather()['precipProbability']) > 0.1:
-    pass # display a warning to bring a jacket
-    currWeather()['precipType'] #display this value
-  return None #return the outfit combination
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
