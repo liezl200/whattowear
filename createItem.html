@@ -60,12 +60,7 @@
             <br>
             <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
         </div>
-        <div class="span6">
-            <p>
-                Select a color: 
-            </p>
-            <div style="height:200px; width:200px;" id='colorSelector'></div>
-            <br>
+        <br>
             Select a pattern: </br>
             <input type="radio" name='patternSelector' value='none' checked="checked"> No pattern
             <input type="radio" name='patternSelector' value='floral'> Floral
@@ -73,7 +68,13 @@
             <input type="radio" name='patternSelector' value='horizontalstripes'> Horizontal stripes
             <input type="radio" name='patternSelector' value='plaid'> Plaid
             <br><br>
-            <input type="submit" id="submitButton" name="Add Item" style="margin-bottom:20px;">
+        <div class="span6">
+            <p>
+                Select a color: 
+            </p>
+            <div style="height:200px; width:200px;" id='colorSelector'></div>
+            
+            <input type="submit" id="submitButton" name="Add Item" value="Add Item" style="margin-bottom:20px;">
             <input type="hidden" name="color" id="hiddenColor">
         </form>
     </div>
@@ -87,7 +88,11 @@
         </div>
     </div>
   </div>
-  {{footer}}
+  <script src="/static/bootstrap.min.js"></script>
+  <script src="static/main.js"></script>
+  <script src="static/masonry.pkgd.min.js"></script>
+  <script src="static/imagesloaded.js"></script>
+  <script src="static/classie.js"></script>
     
 </body>
 
