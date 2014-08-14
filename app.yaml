@@ -5,9 +5,7 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: favicon.png
-  static_files: favicon.png
-  upload: favicon.png
+
 
 
 - url: /static/(.*\.ttf)
