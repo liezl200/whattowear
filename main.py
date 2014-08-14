@@ -72,13 +72,15 @@ class OutfitsHandler(webapp2.RequestHandler):
     tomorrowsOutfit = None
     todaysOutfit = None
     today = True
-    tomorrow = False
+    tomorrow = True
     for i in range(0, len(items)):
       if(items[i].date < datetime.date.today()):
         items[i].key.delete()
       elif(items[i].date == datetime.date.today()):
+        todaysOutfit = items[i]
         today = False
       elif(items[i].date == datetime.date.today() + datetime.timedelta(days=1)):
+        tomorrowsOutfit = items[i]
         tomorrow = False
     logging.info(today)
     logging.info(tomorrow)

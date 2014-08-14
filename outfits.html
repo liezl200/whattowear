@@ -15,10 +15,10 @@
             {% if todaysRecommendation != None and tomorrowsRecommendation != None %}
               <h1 style="margin-right:100px">Todays Recommendation</h1><h1>Tomorrow's Recommendation</h1>
               <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexTop}}:top:{{todaysRecommendation.longShortTop}}:{{todaysRecommendation.patternTop}}"></canvas>
-              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecomendation.hexTop}}:top:{{tomorrowsRecomendation.longShortTop}}:{{tomorrowsRecomendation.patternTop}}"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecommendation.hexTop}}:top:{{tomorrowsRecommendation.longShortTop}}:{{tomorrowsRecommendation.patternTop}}"></canvas>
               <br>
               <canvas height="300px" width="200px" name="canvas" id="{{todaysRecommendation.hexBottom}}:bottom:{{todaysRecommendation.longShortBottom}}:{{todaysRecommendation.patternBottom}}"></canvas>
-              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecomendation.hexBottom}}:bottom:{{tomorrowsRecomendation.longShortBottom}}:{{tomorrowsRecomendation.patternBottom}}"></canvas>
+              <canvas height="300px" width="200px" name="canvas" id="{{tomorrowsRecommendation.hexBottom}}:bottom:{{tomorrowsRecommendation.longShortBottom}}:{{tomorrowsRecommendation.patternBottom}}"></canvas>
             {% else %}
               <h1>You don't have enough clothes for an outfit!</h1>
             {% endif %}

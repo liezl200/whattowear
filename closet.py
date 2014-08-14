@@ -146,7 +146,10 @@ def matchColors(): #returns a decent clothing match with compatible colors
   backup = ("No items")
   for item in items:
     compatible[item.key] = generateColors(item.hexValue) # get the compatibility values
+    logging.info(item.hexValue)
+    logging.info(generateColors(item.hexValue))
   #matches = []
+  
   kindofblue = "292278"
   for currentBaseItem in items:
     returnNextTop = False
@@ -160,6 +163,7 @@ def matchColors(): #returns a decent clothing match with compatible colors
       mono2 = whichGray(item.hexValue)
       if mono1 != "colored" or mono2 != "colored":
         if mono1 != mono2:
+          #logging.info('done')
           return (-2, currentBaseItem, item, 0)
 
       if currentBaseItem.topBottom == "bottom" and colorSimilarity(currentBaseItem.hexValue, kindofblue) < 60:
@@ -175,6 +179,7 @@ def matchColors(): #returns a decent clothing match with compatible colors
 
 def getOutfit(day):
   rawTuple = matchColors()
+  logging.info(rawTuple)
   if rawTuple[0] == "No items":
     return None
   else:
@@ -186,8 +191,9 @@ def getOutfit(day):
       top = rawTuple[1]
     
     date = datetime.date.today()
-    if day == "today":
+    if day == "tomorrow":
       date += datetime.timedelta(days=1)
+
     return Outfit(
       hexTop=top.hexValue,
       hexBottom=bottom.hexValue,
