@@ -151,19 +151,20 @@ def matchColors(): #returns a decent clothing match with compatible colors
   backup = "No items"
   for item in items:
     compatible[item.key] = generateColors(item.hexValue) # get the compatibility values
-    logging.info(item.hexValue)
-    logging.info(generateColors(item.hexValue))
+    #logging.info(item.hexValue)
+    #logging.info(generateColors(item.hexValue))
   #matches = []
   currWeather = getWeather()
   kindofblue = "292278"
   for currentBaseItem in items:
     returnNextTop = False
     if float(currWeather['temperature']) < 60: #later on let the user change this in settings
-      if currentBaseItem.longShort == 'short':
+      if currentBaseItem.longShort != 'long':
         continue
     else:
-      if item.longShort == 'long':
+      if currentBaseItem.longShort == 'long':
         continue
+    logging.info(currentBaseItem.longShort)
     for item in items:
       if float(currWeather['temperature']) < 60: #later on let the user change this in settings
         if item.longShort != 'long':
@@ -199,13 +200,15 @@ def matchColors(): #returns a decent clothing match with compatible colors
 def getOutfit(day):
   rawTuple = matchColors()
   logging.info(rawTuple)
+  top = None
+  bottom = None
   if rawTuple == "No items":
     return None
   else:
     if rawTuple[1].topBottom == "bottom":
       bottom = rawTuple[1]
       top = rawTuple[2]
-    else:
+    elif rawTuple[1].topBottom == "top":
       bottom = rawTuple[2]
       top = rawTuple[1]
     
