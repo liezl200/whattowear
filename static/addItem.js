@@ -8,10 +8,12 @@ function main()
     initializeHandlers();
     initializeColorSelector();
     onClick();
+    onResize();
 }
 
 function initializeHandlers()
 {
+    window.addEventListener('resize', onResize)
     var mainform = document.getElementById("createItem");
     for(var i = 0; i < mainform.elements.length; i++)
     {
@@ -188,4 +190,14 @@ function toHex(r, g, b)
     if(bString.length < 2)
         bString = "0" + bString;
     return  rString + gString + bString;
+}
+
+function onResize()
+{
+    var colorBoxDiv = document.getElementById('colorWheelBox');
+    var canvas = document.getElementById('canvas');
+    var top = (canvas.offsetTop - 20) + 'px';   
+    var left = (canvas.offsetLeft + canvas.width + 88) + 'px';
+    colorBoxDiv.style.left = left;
+    colorBoxDiv.style.top = top;
 }
