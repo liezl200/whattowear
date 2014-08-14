@@ -30,10 +30,17 @@
   }
   </style>
   <script type="text/javascript">
-  function showValue(newValue)
+  function showValue(newValue, id)
     {
-      document.getElementById("range").innerHTML=newValue;
+      document.getElementById(id).innerHTML=newValue;
     }
+  function validateRange(){
+    alert('test: ' + $("#maxLong").val() + ' ' + $("#maxShort").val());
+    if (parseInt($("#maxLong").val()) > parseInt($("#maxShort").val())){
+      alert("The max temperature for long garments must be less than the max temperature for short garments");
+      return false;
+    }
+  }
   </script>
 </head>
 <body>
@@ -42,20 +49,14 @@
     <div class="bs-docs-section">
       <h1>Settings</h1>
       <form>
-        Input a secondary e-mail below to receive another copy of your automatically-generated outfit each evening.</br>
-        E-mail: <input type="text"><br><br>
-        How many outfits would you like us to send? </br>
-        <input id="numOutfits" type="range" min="0" max="5" value="0" step="1" onchange="showValue(this.value)" style="width:250px" />
-        <span id="range">0</span></br>
-
         What is the closest to the max temperature you want for long garments (also the minimum temperature for short garments)? </br>
-        <input id="maxLong" type="range" min="32" max="100" value="0" step="1" onchange="showValue(this.value)" style="width:250px" />
+        <input id="maxLong" type="range" min="32" max="100" value="67" step="1" onchange="showValue(this.value, 'range2')" style="width:250px" />
         <span id="range2">67</span></br>
          What is the closest to the max temperature you want for short garments (also the minimum temperature for short short garments)? </br>
-        <input id="maxShort" type="range" min="32" max="100" value="0" step="1" onchange="showValue(this.value)" style="width:250px" />
+        <input id="maxShort" type="range" min="32" max="100" value="83" step="1" onchange="showValue(this.value, 'range3')" style="width:250px" />
         <span id="range3">83</span>
         <br>
-        <input type="submit" value="Amend my profile!">
+        <input type="submit" onsubmit="return validateRange();" method="post" value="Amend my profile!">
       </form>
     </div>
     <div class="push"></div>

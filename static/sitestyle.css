@@ -65,6 +65,9 @@ p{
   background: #1a1a1a;
   width: 200px;
   height: 100%}
+.menu-wrap p{
+  font-family: Raleway-Light;
+}
 .menu h1.logo a {
   font-family: Raleway, Helvetica, Arial, sans-serif;
   font-size: 16px;
