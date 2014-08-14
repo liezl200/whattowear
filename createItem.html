@@ -30,25 +30,26 @@
   <div class="content-wrapper">
     <div class="container bs-docs-container">
         <div class="bs-docs-section" id="formContainer">
-        <h2>Add Closet Items</h2>
-        <p>
-            Recently acquired some new things to wear? Enter the information below, and we'll find some outfits for you to show 'em off!
-        </p>
-        
-        <!--<div width="100px" height="100px" id='colorSelector'></form>-->
-    {% if longorshort %}
-        <div class="status">
-          You created a <strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
-        </div>
-        <br><br>
-    {% endif %}
+            <h2>Add Closet Items</h2>
+                <p> Recently acquired some new things to wear? Enter the information below, and we'll find some outfits for you to show 'em off! </p>
+                    <div class="row-fluid">
+                        <!--<div width="100px" height="100px" id='colorSelector'></form>-->
+                        {% if longorshort %}
+                            <div class="status">
+                                You created a <strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.
+                            </div>
+            <br><br>
+        {% endif %}
         <form action="createItem" id="createItem">
+            <div class="span6">
             Is your clothing item a: </br>
             <input type="radio" name='topbottom' value='top' checked="checked"> Top?
             <input type="radio" name='topbottom' value='bottom'> Bottom?
             
             <input type="radio" name='topbottom' value='dress'> Dress?
             <br><br>
+        
+
             Is your clothing item: </br>
             
             <input type="radio" name='longshort' value='long' checked="checked"> Long?
@@ -56,7 +57,8 @@
             <input type="radio" name='longshort' value='shortshort'> Short-short?
             <br>
             <canvas width="200px" height="300px" class="fixed" id='canvas'></canvas>
-            <br>
+        </div>
+        <div class="span6">
             <p>
                 Select a color: 
             </p>
@@ -72,7 +74,8 @@
             <input type="submit" id="submitButton" name="Add Item" style="margin-bottom:20px;">
             <input type="hidden" name="color" id="hiddenColor">
         </form>
-
+    </div>
+        </div>
         <!--{% if longorshort %}
             <div class="status">
               You created a <strong>{{nameofcolor}}<strong/>, <strong>{{longorshort}}<strong/> <strong>{{toporbottom}}</strong>.

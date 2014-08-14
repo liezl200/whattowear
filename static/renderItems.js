@@ -39,10 +39,10 @@ function drawShirt(canvas, r, g, b)
 {
     var ctx = canvas.getContext('2d');
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var borderColor = ((r+g+b)/3 > 100?0:255);
+    var borderColor = ((r+g+b)/3 > 100?0:130);
     for(var i = 0; i < imageData.data.length; i += 4)
     {
-        if(imageData.data[i] == 255 && imageData.data[i+1] == 254 && imageData.data[i+2] == 252)
+        if(imageData.data[i+3] < 1)
             continue;
         if(imageData.data[i] == 0 && imageData.data[i+1] == 0
             && imageData.data[i+2] == 0)

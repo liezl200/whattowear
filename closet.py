@@ -37,7 +37,6 @@ class CreateItemFormHandler(webapp2.RequestHandler):
   def get(self): 
     template_values = {"header": header.getHeader('/createItemForm'), "footer": header.getFooter()}
     template = jinja_environment.get_template('createItem.html')
-    #template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class CreateItemHandler(webapp2.RequestHandler):
   def get(self):
@@ -46,16 +45,13 @@ class CreateItemHandler(webapp2.RequestHandler):
     topBottom = self.request.get('topbottom')
     longShort = self.request.get('longshort')
     pattern = self.request.get('patternSelector')
-
     user = users.get_current_user()
     logging.info(user)
-
     template_values['toporbottom'] = topBottom
     template_values['longorshort'] = longShort
-
     item = Item(hexValue = color, topBottom = topBottom, longShort = longShort, pattern = pattern, user = user)
     item.put()
-    template = jinja_environment.get_template('temporary.html')
+    template = jinja_environment.get_template('createItem.html')
     self.response.out.write(template.render(template_values))
 class ViewItemsHandler(webapp2.RequestHandler):
   def get(self):
@@ -69,12 +65,17 @@ class DeleteItemsHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/deleteItems'), "footer":header.getFooter()}
     checkboxArray = self.request.get_all('checkbox')
-    for it in checkboxArray:
-      logging.info(it)
-      item = Item.get_by_id(it)
-      item.delete()
+    query = Item.query().filter(Item.user == users.get_current_user())
+    items = query.fetch()
+    for id in checkboxArray:
+      item = Item.get_by_id(int(id))
+      if item in items:
+        item.key.delete()
+    query = Item.query().filter(Item.user == users.get_current_user())
+    items = query.fetch()
+    template_values['items'] = items
     template = jinja_environment.get_template('viewItems.html')
-    #self.response.out.write(template.render(template_values))
+    self.response.out.write(template.render(template_values))
 class AboutHandler(webapp2.RequestHandler):
   def get(self):
     template_values = {"header": header.getHeader('/about'), "footer":header.getFooter()}
@@ -87,7 +88,7 @@ class ProfileHandler (webapp2.RequestHandler):
 def generateColors(color):
   generated = []
   R = color[:2]
-  G = color[3:5]
+  G = color[2:4]
   B = color[4:]
   #color0 = R + G + B
   #generated = generated.append(color0)
@@ -99,10 +100,11 @@ def generateColors(color):
 
 def colorSimilarity(test_color, target_color): #used to calculate similarity of colours from matching colours returned by generateColors
   diff_R = abs(int(test_color[:2], 16) - int(target_color[:2], 16))
-  diff_G = abs(int(test_color[3:5], 16) - int(target_color[3:5], 16))
+  diff_G = abs(int(test_color[2:4], 16) - int(target_color[3:5], 16))
   diff_B = abs(int(test_color[4:], 16) - int(target_color[4:], 16))
   sim_score = diff_R + diff_G + diff_B
   return sim_score 
+
 def whichGray(hexVal):
   #first determine if it is a monochrome/ bw piece
   R = int(hexVal[:2], 16)
@@ -143,6 +145,7 @@ def matchColors(): #returns a decent clothing match with compatible colors
       )
   return matches.sort()
 '''
+
 
 
 
