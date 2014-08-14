@@ -139,6 +139,11 @@ def whichGray(hexVal):
       return "gray"
   return "colored"
 
+def getWeather():
+  response = urllib2.urlopen('https://api.forecast.io/forecast/4d13f73fd2b725c8f2030bca99019789/47.6097,122.3331')
+  data = json.load(response)
+  return data['currently']
+
 def matchColors(): #returns a decent clothing match with compatible colors
   items = list(Item.query().filter(Item.user == users.get_current_user()).fetch())
   random.shuffle(items) #shuffle the items so that different combinations could be found
@@ -149,13 +154,27 @@ def matchColors(): #returns a decent clothing match with compatible colors
     logging.info(item.hexValue)
     logging.info(generateColors(item.hexValue))
   #matches = []
-  
+  currWeather = getWeather()
   kindofblue = "292278"
   for currentBaseItem in items:
     returnNextTop = False
+    if float(currWeather['temperature']) < 60: #later on let the user change this in settings
+      if currentBaseItem.longShort == 'short':
+        continue
+    else:
+      if item.longShort == 'long':
+        continue
     for item in items:
-      if currentBaseItem == item or currentBaseItem.topBottom == item.topBottom:
-        break
+      if float(currWeather['temperature']) < 60: #later on let the user change this in settings
+        if item.longShort != 'long':
+          continue
+      else:
+        if item.longShort == 'long':
+          continue
+
+
+      if currentBaseItem == item or currentBaseItem.topBottom == item.topBottom or currentBaseItem.pattern != "none" and item.pattern != "none":
+        continue
       if returnNextTop and currentBaseItem.topBottom == "top":
         return (-3, currentBaseItem, item, 0)
 
