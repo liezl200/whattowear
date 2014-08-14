@@ -41,9 +41,9 @@ function removeWaterMark()
             continue;
         if(imageData.data[i] < 180 && imageData.data[i+1] < 180 && imageData.data[i+2] < 180)
         {
-            imageData.data[i] = 0;
-            imageData.data[i+1] = 0;
-            imageData.data[i+2] = 0;
+            imageData.data[i] = lastBorderColor;
+            imageData.data[i+1] = lastBorderColor;
+            imageData.data[i+2] = lastBorderColor;
         }
         else
         {
