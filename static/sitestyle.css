@@ -20,6 +20,10 @@ body {
 h2 {
   font-family: Raleway-Regular !important;
 }
+
+p{
+  margin-left: 20px;
+}
 .navbar{
   font-family: Lato-Regular;
   border: 0px;
@@ -99,6 +103,7 @@ h2 {
 }
 .menu p{
   color:white;
+  margin-left: 20px;
 }
 .menu a:active {
     color: #fff;
