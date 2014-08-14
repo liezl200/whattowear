@@ -111,9 +111,9 @@ def generateColors(color):
   #color0 = R + G + B
   #generated = generated.append(color0)
   color1 = B + G + R
-  generated = generated.append(color1)
+  generated.append(color1)
   color2 = G + B + R
-  generated = generated.append(color2)
+  generated.append(color2)
   return generated
 
 def colorSimilarity(test_color, target_color): #used to calculate similarity of colours from matching colours returned by generateColors
